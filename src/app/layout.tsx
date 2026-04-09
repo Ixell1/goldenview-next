@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
-import { LangProvider } from '../context/LangContext';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -27,9 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="sr" data-lang="sr">
       <body className={`${plusJakarta.variable} ${cormorant.variable}`}>
-        <LangProvider>
-          {children}
-        </LangProvider>
+        {children}
       </body>
     </html>
   );
