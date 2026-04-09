@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { useLang } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
 const translations = {
   sr: {
@@ -23,16 +23,16 @@ const translations = {
   },
   en: {
     sectionTitle: 'Why Goldenview',
-    heading: 'What large hotels can't give you',
+    heading: "What large hotels can't give you",
     benefit1Title: 'Boutique atmosphere',
     benefit1Desc:
       'New apartments 32–51 m² with equipped kitchen and terrace. No corridors with a hundred doors.',
     benefit2Title: 'Home-style kitchen',
     benefit2Desc:
-      'Breakfast from local ingredients, Serbian specialties, local wines. Food you won't find in a hotel buffet.',
+      "Breakfast from local ingredients, Serbian specialties, local wines. Food you won't find in a hotel buffet.",
     benefit3Title: 'View of Mt. Rtanj',
     benefit3Desc:
-      'The golden view we're named after — wake up to the panorama of the mystical Rtanj pyramid right from your terrace.',
+      "The golden view we're named after — wake up to the panorama of the mystical Rtanj pyramid right from your terrace.",
     benefit4Title: 'Free parking',
     benefit4Desc:
       'No searching, no extra charge. Park and forget about your car until departure.',

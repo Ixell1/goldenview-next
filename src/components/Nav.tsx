@@ -1,10 +1,10 @@
 'use client';
 
-import { useContext, useState, useEffect } from 'react';
-import { LangContext } from '@/context/LangContext';
+import { useState, useEffect } from 'react';
+import { useLang } from '../context/LangContext';
 
 export default function Nav() {
-  const { lang, setLang } = useContext(LangContext);
+  const { lang, setLang } = useLang();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 

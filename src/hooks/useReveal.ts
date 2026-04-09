@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, RefObject } from 'react';
 
-export function useReveal() {
-  const ref = useRef<HTMLElement>(null);
+export function useReveal(externalRef?: RefObject<HTMLElement | null>): RefObject<any> {
+  const internalRef = useRef<HTMLElement>(null);
+  const ref = externalRef || internalRef;
 
   useEffect(() => {
     const element = ref.current;

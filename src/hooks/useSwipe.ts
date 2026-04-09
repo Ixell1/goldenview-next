@@ -5,7 +5,7 @@ import { useEffect, RefObject } from 'react';
 const SWIPE_THRESHOLD = 40;
 
 export function useSwipe(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   onSwipeLeft?: () => void,
   onSwipeRight?: () => void
 ) {

@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { useLang } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
 const translations = {
   sr: {

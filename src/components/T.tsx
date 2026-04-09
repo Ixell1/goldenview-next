@@ -1,6 +1,6 @@
 'use client';
 
-import { useLang } from '@/context/LangContext';
+import { useLang } from '../context/LangContext';
 
 interface TProps {
   sr: string;

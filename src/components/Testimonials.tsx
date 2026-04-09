@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { useLang } from '@/context/LangContext';
-import { useSwipe } from '@/hooks/useSwipe';
+import { useLang } from '../context/LangContext';
+import { useSwipe } from '../hooks/useSwipe';
 
 const translations = {
   sr: {
@@ -214,11 +214,11 @@ export default function Testimonials() {
                       <span key={i}>★</span>
                     ))}
                   </div>
-                  <p className="testi-quote">{testi[lang as keyof typeof testi].quote}</p>
+                  <p className="testi-quote">{(testi as any)[lang].quote}</p>
                   <div className="testi-author">
-                    <div className="testi-headline">{testi[lang as keyof typeof testi].author}</div>
+                    <div className="testi-headline">{(testi as any)[lang].author}</div>
                     <div className="testi-meta">
-                      {testi[lang as keyof typeof testi].type} • {testi[lang as keyof typeof testi].date}
+                      {(testi as any)[lang].type} • {(testi as any)[lang].date}
                     </div>
                   </div>
                 </div>

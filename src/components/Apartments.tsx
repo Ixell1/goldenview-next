@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { useLang } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
-import { useSwipe } from '@/hooks/useSwipe';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
+import { useSwipe } from '../hooks/useSwipe';
 
 const BASE_URL = 'https://udruzenjeradar.rs/wp-content/uploads/2026/03/';
 
@@ -17,7 +17,7 @@ interface Apartment {
   price: string;
 }
 
-export const Apartments = () => {
+export default function Apartments() {
   const { lang } = useLang();
   const headerRef = useReveal();
   const sliderRef = useRef<HTMLDivElement>(null);

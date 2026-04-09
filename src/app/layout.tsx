@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
-import { LangProvider } from '@/context/LangContext';
+import { LangProvider } from '../context/LangContext';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],

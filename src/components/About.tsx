@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useLang } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
 const BASE_URL = 'https://udruzenjeradar.rs/wp-content/uploads/2026/03/';
 
@@ -55,7 +55,7 @@ const Counter = ({ target, label, delayClass = '' }: CounterProps) => {
   );
 };
 
-export const About = () => {
+export default function About() {
   const { lang } = useLang();
   const imagesRef = useReveal();
   const contentRef = useReveal();

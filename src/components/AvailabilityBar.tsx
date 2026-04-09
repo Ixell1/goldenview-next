@@ -1,11 +1,11 @@
 'use client';
 
-import { useContext, useState, useRef, useEffect } from 'react';
-import { LangContext } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useState, useRef, useEffect } from 'react';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
 export default function AvailabilityBar() {
-  const { lang } = useContext(LangContext);
+  const { lang } = useLang();
   const barRef = useRef(null);
   useReveal(barRef);
 

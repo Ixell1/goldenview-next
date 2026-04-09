@@ -1,9 +1,9 @@
 'use client';
 
-import { useLang } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
-export const VideoSection = () => {
+export default function VideoSection() {
   const { lang } = useLang();
   const revealRef = useReveal();
 

@@ -1,11 +1,11 @@
 'use client';
 
-import { useContext, useRef } from 'react';
-import { LangContext } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useRef } from 'react';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
 export default function Hero() {
-  const { lang } = useContext(LangContext);
+  const { lang } = useLang();
 
   // useReveal for left content
   const badgeRef = useRef(null);

@@ -1,6 +1,6 @@
 'use client';
 
-export const Marquee = () => {
+export default function Marquee() {
   const marqueeContent = (
     <>
       <span className="highlight">GOLDENVIEW</span>

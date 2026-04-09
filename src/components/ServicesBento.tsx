@@ -1,7 +1,7 @@
 'use client';
 
-import { useLang } from '@/context/LangContext';
-import { useReveal } from '@/hooks/useReveal';
+import { useLang } from '../context/LangContext';
+import { useReveal } from '../hooks/useReveal';
 
 const BASE_URL = 'https://udruzenjeradar.rs/wp-content/uploads/2026/03/';
 
@@ -15,7 +15,7 @@ interface BentoCard {
   delayClass: string;
 }
 
-export const ServicesBento = () => {
+export default function ServicesBento() {
   const { lang } = useLang();
   const headerRef = useReveal();
 
