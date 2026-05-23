@@ -1,307 +1,89 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import Nav from '@/components/Nav';
+import Footer from '@/components/Footer';
+import CTASection from '@/components/CTASection';
+import AvailabilityChecker from '@/components/AvailabilityChecker';
+import RevealOnScroll from '@/components/RevealOnScroll';
+
+const APTS = [
+  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', size: '51', cap_sr: 'do 5 gostiju', cap_en: 'up to 5 guests' },
+  { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apt-7.webp', size: '49', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C3', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-10.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C4', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-11.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+];
+
+const TESTIMONIALS = [
+  { name: 'Marko J.', text_sr: 'Apartman je bio besprekorno čist, vlasnici izuzetno ljubazni. Bazen je pravi mali raj. Vraćamo se sigurno.', text_en: 'The apartment was spotless, hosts extremely kind. The pool is a little paradise. We will definitely come back.' },
+  { name: 'Ana K.', text_sr: 'Restoran je odličan, hrana domaća i ukusna. Mir i tišina kakvi su nam trebali. Preporučujem od srca.', text_en: 'The restaurant is great, food is homemade and delicious. Peace and quiet we needed. Highly recommend.' },
+  { name: 'Petar V.', text_sr: 'Sve na najvišem nivou — od dočeka, preko apartmana, do hrane. Pogled iz terase je nestvaran.', text_en: 'Everything at the highest level — from welcome, to the apartment, to the food. The view from terrace is unreal.' },
+  { name: 'Tanja M.', text_sr: 'Veoma ljubazni vlasnici, sve je bilo savršeno. Apartman moderan i komforan, lokacija idealna.', text_en: 'Very kind hosts, everything was perfect. Apartment modern and comfortable, location ideal.' },
+  { name: 'Dragan S.', text_sr: 'Preporučujem svima koji traže mir i kvalitet. Restoran je vrhunski, hrana sveža i ukusna.', text_en: 'I recommend to everyone seeking peace and quality. The restaurant is excellent, food fresh and tasty.' },
+  { name: 'Jelena T.', text_sr: 'Vraćam se svake godine. Domaća atmosfera, kao kod kuće. Najbolji izbor u Sokobanji.', text_en: 'I come back every year. Homely atmosphere, just like home. Best choice in Sokobanja.' },
+];
+
+const GALLERY = [
+  '/apt-images/apartman-1.webp', '/apt-images/apartman-3.webp', '/spa-images/new/bazen-otvoreni.webp',
+  '/rest-images/new/ambient-1.webp', '/spa-images/new/djakuzi.webp', '/rest-images/new/food-steak.webp',
+  '/apt-images/apartman-4.webp', '/spa-images/new/sauna.webp', '/rest-images/new/lounge-1.webp',
+];
 
 export default function Home() {
-  const [lang, setLang] = useState<'sr' | 'en'>('sr');
-  const [mounted, setMounted] = useState(false);
-  const [currentAptSlide, setCurrentAptSlide] = useState(0);
-  const [currentTestiSlide, setCurrentTestiSlide] = useState(0);
-  const [currentGallerySlide, setCurrentGallerySlide] = useState(0);
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [navScrolled, setNavScrolled] = useState(false);
-  const [nightsCount, setNightsCount] = useState(0);
-  const [showAvailSuccess, setShowAvailSuccess] = useState(false);
-  const [showLightbox, setShowLightbox] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState('');
-  
   const aptTrackRef = useRef<HTMLDivElement>(null);
   const testiTrackRef = useRef<HTMLDivElement>(null);
   const galleryTrackRef = useRef<HTMLDivElement>(null);
-  const testiAutoRef = useRef<NodeJS.Timeout>(null as unknown as NodeJS.Timeout);
+  const [aptIdx, setAptIdx] = useState(0);
+  const [testiIdx, setTestiIdx] = useState(0);
+  const [galIdx, setGalIdx] = useState(0);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
-  // Initialize & Language persistence
+  const aptVis = () => (typeof window === 'undefined' ? 3 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+  const testiVis = () => (typeof window === 'undefined' ? 2 : window.innerWidth < 768 ? 1 : 2);
+  const galVis = () => (typeof window === 'undefined' ? 3 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+
+  const goApt = (i: number) => {
+    const v = aptVis();
+    const max = Math.max(0, APTS.length - v);
+    const n = Math.min(Math.max(0, i), max);
+    setAptIdx(n);
+    if (aptTrackRef.current) aptTrackRef.current.style.transform = `translateX(${-n * (100 / v)}%)`;
+  };
+
+  const goTesti = (i: number) => {
+    const v = testiVis();
+    const pages = Math.ceil(TESTIMONIALS.length / v);
+    const p = ((i % pages) + pages) % pages;
+    setTestiIdx(p);
+    if (testiTrackRef.current) testiTrackRef.current.style.transform = `translateX(${-p * 100}%)`;
+  };
+
+  const goGal = (i: number) => {
+    const v = galVis();
+    const pages = Math.ceil(GALLERY.length / v);
+    const p = ((i % pages) + pages) % pages;
+    setGalIdx(p);
+    if (galleryTrackRef.current) galleryTrackRef.current.style.transform = `translateX(${-p * 100}%)`;
+  };
+
   useEffect(() => {
-    setMounted(true);
-    const savedLang = localStorage.getItem('lang') as 'sr' | 'en' | null;
-    if (savedLang) {
-      setLang(savedLang);
-      document.documentElement.setAttribute('data-lang', savedLang);
-      document.documentElement.lang = savedLang;
-    }
+    const id = setInterval(() => setTestiIdx((i) => { const v = testiVis(); const p = Math.ceil(TESTIMONIALS.length / v); const n = (i + 1) % p; if (testiTrackRef.current) testiTrackRef.current.style.transform = `translateX(${-n * 100}%)`; return n; }), 6000);
+    return () => clearInterval(id);
   }, []);
-
-  const switchLang = (newLang: 'sr' | 'en') => {
-    setLang(newLang);
-    localStorage.setItem('lang', newLang);
-    document.documentElement.setAttribute('data-lang', newLang);
-    document.documentElement.lang = newLang;
-  };
-
-  // Scroll reveal
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  // Counter animation
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target as HTMLElement;
-          const target = parseInt(el.dataset.target || '0');
-          let current = 0;
-          const step = Math.ceil(target / 30);
-          const interval = setInterval(() => {
-            current = Math.min(current + step, target);
-            el.textContent = current.toString();
-            if (current >= target) clearInterval(interval);
-          }, 20);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.counter').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  // Nav scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setNavScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Calculate nights
-  useEffect(() => {
-    const checkInInput = document.getElementById('checkInDate') as HTMLInputElement;
-    const checkOutInput = document.getElementById('checkOutDate') as HTMLInputElement;
-    const updateNights = () => {
-      if (checkInInput?.value && checkOutInput?.value) {
-        const checkIn = new Date(checkInInput.value);
-        const checkOut = new Date(checkOutInput.value);
-        const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
-        setNightsCount(Math.max(0, nights));
-      }
-    };
-    checkInInput?.addEventListener('change', updateNights);
-    checkOutInput?.addEventListener('change', updateNights);
-  }, []);
-
-  // Apartment slider
-  const AVIS = () => {
-    if (typeof window === 'undefined') return 1;
-    if (window.innerWidth < 768) return 1;
-    if (window.innerWidth < 1024) return 2;
-    return 3;
-  };
-
-  const goApt = (idx: number) => {
-    const vis = AVIS();
-    const total = 12;
-    const maxSlide = Math.max(0, total - vis);
-    const newIdx = Math.min(Math.max(0, idx), maxSlide);
-    setCurrentAptSlide(newIdx);
-    if (aptTrackRef.current) {
-      const itemWidth = 100 / vis;
-      aptTrackRef.current.style.transform = `translateX(${-newIdx * itemWidth}%)`;
-    }
-  };
-
-  // Testimonials slider with auto-advance
-  const TVIS = () => {
-    if (typeof window === 'undefined') return 1;
-    if (window.innerWidth < 768) return 1;
-    return 2;
-  };
-
-  const goTesti = (idx: number) => {
-    const vis = TVIS();
-    const total = 6;
-    const numPages = Math.ceil(total / vis);
-    const newPage = ((idx % numPages) + numPages) % numPages;
-    setCurrentTestiSlide(newPage * vis);
-    if (testiTrackRef.current) {
-      testiTrackRef.current.style.transform = `translateX(${-newPage * 100}%)`;
-    }
-  };
-
-  useEffect(() => {
-    const startAutoAdvance = () => {
-      testiAutoRef.current = setInterval(() => {
-        const vis = TVIS();
-        const nextIdx = (currentTestiSlide + vis) % 6;
-        goTesti(nextIdx);
-      }, 5000);
-    };
-
-    const handleMouseEnter = () => {
-      if (testiAutoRef.current) clearInterval(testiAutoRef.current);
-    };
-
-    const handleMouseLeave = () => {
-      startAutoAdvance();
-    };
-
-    const testiTrack = testiTrackRef.current;
-    if (testiTrack) {
-      testiTrack.addEventListener('mouseenter', handleMouseEnter);
-      testiTrack.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    startAutoAdvance();
-
-    return () => {
-      if (testiAutoRef.current) clearInterval(testiAutoRef.current);
-      if (testiTrack) {
-        testiTrack.removeEventListener('mouseenter', handleMouseEnter);
-        testiTrack.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, [currentTestiSlide]);
-
-  // Gallery slider
-  const GVIS = () => {
-    if (typeof window === 'undefined') return 1;
-    if (window.innerWidth < 768) return 1;
-    if (window.innerWidth < 1024) return 2;
-    return 3;
-  };
-
-  const goGallery = (idx: number) => {
-    const vis = GVIS();
-    const total = 9;
-    const numPages = Math.ceil(total / vis);
-    const newPage = ((idx % numPages) + numPages) % numPages;
-    setCurrentGallerySlide(newPage * vis);
-    if (galleryTrackRef.current) {
-      galleryTrackRef.current.style.transform = `translateX(${-newPage * 100}%)`;
-    }
-  };
-
-  // Touch swipe support
-  useEffect(() => {
-    const addSwipe = (trackRef: React.RefObject<HTMLDivElement | null>, onSwipe: (dir: number) => void) => {
-      if (!trackRef.current) return;
-      let touchStartX = 0;
-      let moved = false;
-
-      const handleTouchStart = (e: TouchEvent) => {
-        touchStartX = e.touches[0].clientX;
-        moved = false;
-      };
-
-      const handleTouchEnd = (e: TouchEvent) => {
-        if (moved) return;
-        const touchEndX = e.changedTouches[0].clientX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 40) {
-          moved = true;
-          onSwipe(diff > 0 ? 1 : -1);
-        }
-      };
-
-      const handleTouchMove = () => {
-        moved = false;
-      };
-
-      trackRef.current.addEventListener('touchstart', handleTouchStart);
-      trackRef.current.addEventListener('touchend', handleTouchEnd);
-      trackRef.current.addEventListener('touchmove', handleTouchMove);
-
-      return () => {
-        trackRef.current?.removeEventListener('touchstart', handleTouchStart);
-        trackRef.current?.removeEventListener('touchend', handleTouchEnd);
-        trackRef.current?.removeEventListener('touchmove', handleTouchMove);
-      };
-    };
-
-    const unsubApt = addSwipe(aptTrackRef, (dir) => goApt(currentAptSlide + (dir > 0 ? 1 : -1)));
-    const unsubTesti = addSwipe(testiTrackRef, (dir) => goTesti(currentTestiSlide + (dir > 0 ? 1 : -1)));
-    const unsubGallery = addSwipe(galleryTrackRef, (dir) => goGallery(currentGallerySlide + (dir > 0 ? 1 : -1)));
-
-    return () => {
-      unsubApt?.();
-      unsubTesti?.();
-      unsubGallery?.();
-    };
-  }, [currentAptSlide, currentTestiSlide, currentGallerySlide]);
-
-  // Availability modal
-  const handleAvailabilitySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const consent = (document.getElementById('consent') as HTMLInputElement)?.checked;
-    if (!consent) {
-      alert('Molimo prihvatite uslove');
-      return;
-    }
-    setShowAvailSuccess(true);
-    setTimeout(() => setShowAvailSuccess(false), 3000);
-  };
-
-  // Get bilingual text
-  const getText = (sr: string, en: string) => {
-    return lang === 'sr' ? sr : en;
-  };
-
-  if (!mounted) return null;
 
   return (
     <>
-      <style>{`
-        [data-lang="en"] [data-sr] { display: none; }
-        [data-lang="en"] [data-en] { display: inline; }
-        [data-lang="sr"] [data-en] { display: none; }
-        [data-lang="sr"] [data-sr] { display: inline; }
-      `}</style>
-
-      {/* NAVIGATION */}
-      <nav className={`nav ${navScrolled ? 'scrolled' : ''}`} id="mainNav">
-        <a href="/" className="nav-logo">
-          <img src="https://udruzenjeradar.rs/wp-content/uploads/2026/03/logo-goldenview.png" alt="Goldenview" className="nav-logo-img" />
-        </a>
-        <ul className="nav-links">
-          <li><a href="#o-nama" data-sr="O nama" data-en="About">O nama</a></li>
-          <li><a href="#apartmani" data-sr="Apartmani" data-en="Apartments">Apartmani</a></li>
-          <li><a href="#restoran" data-sr="Restoran" data-en="Restaurant">Restoran</a></li>
-          <li><a href="#destinacija" data-sr="Destinacija" data-en="Destination">Destinacija</a></li>
-          <li><a href="#galerija" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
-          <li><a href="#kontakt" data-sr="Kontakt" data-en="Contact">Kontakt</a></li>
-        </ul>
-        <div className="nav-right">
-          <a href="tel:063604808" className="nav-phone" data-sr="063 / 604-808" data-en="063 / 604-808">063 / 604-808</a>
-          <div className="lang-toggle">
-            <button className={`lang-btn ${lang === 'sr' ? 'active' : ''}`} onClick={() => switchLang('sr')}>SR</button>
-            <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => switchLang('en')}>EN</button>
-          </div>
-        </div>
-        <button className={`nav-hamburger ${mobileNavOpen ? 'open' : ''}`} onClick={() => setMobileNavOpen(!mobileNavOpen)}>
-          <span></span><span></span><span></span>
-        </button>
-      </nav>
-
-      {/* Mobile Nav */}
-      {mobileNavOpen && (
-        <div className="mobile-nav">
-          <a href="#o-nama" onClick={() => setMobileNavOpen(false)} data-sr="O nama" data-en="About">O nama</a>
-          <a href="#apartmani" onClick={() => setMobileNavOpen(false)} data-sr="Apartmani" data-en="Apartments">Apartmani</a>
-          <a href="#restoran" onClick={() => setMobileNavOpen(false)} data-sr="Restoran" data-en="Restaurant">Restoran</a>
-          <a href="#destinacija" onClick={() => setMobileNavOpen(false)} data-sr="Destinacija" data-en="Destination">Destinacija</a>
-          <a href="#galerija" onClick={() => setMobileNavOpen(false)} data-sr="Galerija" data-en="Gallery">Galerija</a>
-          <a href="tel:063604808" style={{color: 'var(--gold)', borderColor: 'var(--gold)'}}>063 / 604-808</a>
-        </div>
-      )}
+      <Nav active="/" />
+      <RevealOnScroll />
 
       {/* HERO */}
       <section>
@@ -310,18 +92,27 @@ export default function Home() {
             <div className="hero-badge-booking reveal">
               <span className="stars">★★★★★</span>
               <span className="score">9.9</span>
-              <span style={{opacity: 0.6, fontWeight: 500, fontSize: '0.75rem'}} data-sr="na Booking.com · 190+ recenzija" data-en="on Booking.com · 190+ reviews">na Booking.com · 190+ recenzija</span>
+              <span style={{ opacity: 0.6, fontWeight: 500, fontSize: '0.75rem' }}>
+                <span data-sr="na Booking.com · 190+ recenzija" data-en="on Booking.com · 190+ reviews">na Booking.com · 190+ recenzija</span>
+              </span>
             </div>
             <h1 className="hero-h1 reveal delay-1">
               <span data-sr="Vaš privatni kutak" data-en="Your private retreat">Vaš privatni kutak</span>
-              <span className="line2" data-sr="mira u Sokobanji" data-en="in Sokobanja">mira u Sokobanji</span>
+              <span className="line2" data-sr="mira u Sokobanji" data-en="of peace in Sokobanja">mira u Sokobanji</span>
             </h1>
-            <p className="hero-sub reveal delay-2" data-sr="Moderni apartmani sa bazenom, restoran sa domaćom kuhinjom i tišina koju zaslužujete — sve na jednom mestu, na 2,5 sata od Beograda." data-en="Modern apartments with pool, a restaurant serving homemade food, and the peace you deserve — all in one place, 2.5 hours from Belgrade.">
-              Moderni apartmani sa bazenom, restoran sa domaćom kuhinjom i tišina koju zaslužujete — sve na jednom mestu, na 2,5 sata od Beograda.
+            <p className="hero-sub reveal delay-2">
+              <span data-sr="Moderni apartmani sa bazenom, restoran sa domaćom kuhinjom i tišina koju zaslužujete — sve na jednom mestu, na 2,5 sata od Beograda."
+                    data-en="Modern apartments with pool, a restaurant serving homemade food, and the peace you deserve — all in one place, 2.5 hours from Belgrade.">
+                Moderni apartmani sa bazenom, restoran sa domaćom kuhinjom i tišina koju zaslužujete — sve na jednom mestu, na 2,5 sata od Beograda.
+              </span>
             </p>
             <div className="hero-btns reveal delay-3">
-              <a href="tel:063604808" className="btn btn-gold" data-sr="Proveri dostupnost" data-en="Check availability">Proveri dostupnost</a>
-              <a href="#apartmani" className="btn btn-outline" data-sr="Pogledaj apartmane" data-en="View apartments">Pogledaj apartmane</a>
+              <a href="tel:063604808" className="btn btn-gold">
+                <span data-sr="Proveri dostupnost" data-en="Check availability">Proveri dostupnost</span>
+              </a>
+              <Link href="/apartmani" className="btn btn-outline">
+                <span data-sr="Pogledaj apartmane" data-en="View apartments">Pogledaj apartmane</span>
+              </Link>
             </div>
             <div className="hero-trust reveal delay-4">
               <span data-sr="Besplatan parking" data-en="Free parking">Besplatan parking</span>
@@ -332,14 +123,21 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-image-wrap reveal-right">
-            <img src="https://udruzenjeradar.rs/wp-content/uploads/2026/03/Hero-goldenview.webp" alt="Goldenview Spa & Wellness" />
+            <Image
+              src="/spa-images/new/bazen-otvoreni.webp"
+              alt="Goldenview Bazen"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              style={{ objectFit: 'cover', borderRadius: 'var(--r-lg)' }}
+            />
             <div className="hero-float hero-float-1">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               <span data-sr="Moderan SPA" data-en="Modern SPA">Moderan SPA</span>
             </div>
             <div className="hero-float hero-float-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span data-sr="Prostrani apartmani" data-en="Comfortable beds">Prostrani apartmani</span>
+              <span data-sr="Prostrani apartmani" data-en="Spacious apartments">Prostrani apartmani</span>
             </div>
             <div className="hero-float hero-float-3">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -347,89 +145,99 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* AVAILABILITY CHECKER */}
-        <div className="availability-bar reveal">
-          <div className="availability-bar-grid">
-            <div className="availability-field">
-              <label data-sr="Prijava" data-en="Check-in">Prijava</label>
-              <input type="date" id="checkInDate" />
-            </div>
-            <div className="availability-field">
-              <label data-sr="Odjava" data-en="Check-out">Odjava</label>
-              <input type="date" id="checkOutDate" />
-            </div>
-            <div className="availability-field">
-              <label data-sr="Gosti" data-en="Guests">Gosti</label>
-              <select defaultValue="2">
-                <option value="1" data-sr="1 gost" data-en="1 guest">1 gost</option>
-                <option value="2" data-sr="2 gosta" data-en="2 guests">2 gosta</option>
-                <option value="3" data-sr="3 gosta" data-en="3 guests">3 gosta</option>
-                <option value="4+" data-sr="4+ gosta" data-en="4+ guests">4+ gosta</option>
-              </select>
-            </div>
-            <button className="btn btn-gold" onClick={() => setShowAvailSuccess(true)} data-sr="Proveri dostupnost" data-en="Check Availability">Proveri dostupnost</button>
-          </div>
-        </div>
+        <AvailabilityChecker />
       </section>
 
-      {/* PROMO PACKAGES */}
-      <section className="section-pad" style={{background: 'var(--surface)'}}>
-        <div className="container">
-          <div className="eyebrow reveal" data-sr="Specijalne ponude" data-en="Special Offers">Specijalne ponude</div>
-          <h2 className="reveal delay-1" data-sr="Paket ponude" data-en="Package Offers">Paket ponude</h2>
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem'}}>
-            {[
-              { title_sr: 'Uskršnji vikend', title_en: 'Easter Weekend', period_sr: '7-10. april', period_en: 'Apr 7-10', price: '€299', desc_sr: 'Uživajte u posebnoj ponudi za Uskrs', desc_en: 'Enjoy our special Easter offer' },
-              { title_sr: 'Prvi maj', title_en: 'May Day', period_sr: '1-3. maj', period_en: 'May 1-3', price: '€249', desc_sr: 'Produženi vikend sa Prvim majom', desc_en: 'Extended weekend with May Day' },
-              { title_sr: 'Produži i ustedi', title_en: 'Extend & Save', period_sr: 'Sve godine', period_en: 'Year-round', price: '€199', desc_sr: 'Duži boravak = veća ušteda', desc_en: 'Longer stay = bigger savings' }
-            ].map((pkg, i) => (
-              <div key={i} className="reveal" style={{background: '#fff', padding: '1.5rem', borderRadius: 'var(--r-md)', overflow: 'hidden', display: 'flex', flexDirection: 'column'}}>
-                <div style={{fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '0.5rem'}} data-sr={pkg.period_sr} data-en={pkg.period_en}>{pkg.period_sr}</div>
-                <h3 data-sr={pkg.title_sr} data-en={pkg.title_en}>{pkg.title_sr}</h3>
-                <p style={{flex: 1, margin: '1rem 0', color: 'var(--muted)', fontSize: '0.9rem'}} data-sr={pkg.desc_sr} data-en={pkg.desc_en}>{pkg.desc_sr}</p>
-                <div style={{fontSize: '1.75rem', fontWeight: 800, color: 'var(--gold)', marginBottom: '1rem'}}>{pkg.price}</div>
-                <a href="tel:063604808" className="btn btn-gold">Rezerviši</a>
-              </div>
-            ))}
-          </div>
+      {/* MARQUEE */}
+      <div className="marquee-wrap">
+        <div className="marquee-track">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="marquee-item">
+              <span className="highlight">GOLDENVIEW</span><span className="marquee-dot"></span>
+              SOKOBANJA<span className="marquee-dot"></span>
+              APARTMANI<span className="marquee-dot"></span>
+              BAZEN<span className="marquee-dot"></span>
+              RESTORAN<span className="marquee-dot"></span>
+              DOMAĆA KUHINJA<span className="marquee-dot"></span>
+              MIR I TIŠINA<span className="marquee-dot"></span>
+            </span>
+          ))}
         </div>
-      </section>
+      </div>
 
-      {/* YOUTUBE VIDEO */}
+      {/* VIDEO */}
       <section className="section-pad">
         <div className="container">
-          <div className="eyebrow reveal" data-sr="Pogledaj" data-en="Watch">Pogledaj</div>
-          <h2 className="reveal delay-1" data-sr="Prikazao bi naš mali raj" data-en="A glimpse of our little paradise">Prikazao bi naš mali raj</h2>
-          <div style={{marginTop: '3rem', paddingBottom: '56.25%', position: 'relative', overflow: 'hidden', borderRadius: 'var(--r-lg)'}}>
-            <iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none'}} src="https://www.youtube.com/embed/FUzXlzyzhy0" title="Goldenview" allowFullScreen></iframe>
+          <div className="section-header reveal">
+            <span className="eyebrow"><span data-sr="Pogledajte video" data-en="Watch video">Pogledajte video</span></span>
+            <h2>
+              <span data-sr="Doživite atmosferu" data-en="Experience the atmosphere">Doživite atmosferu</span><br />
+              <span className="cursive" data-sr="pre dolaska" data-en="before you arrive">pre dolaska</span>
+            </h2>
+          </div>
+          <div className="video-wrap reveal video-desktop">
+            <iframe
+              src="https://www.youtube.com/embed/N5dFkd2JIoo?autoplay=1&mute=1&loop=1&playlist=N5dFkd2JIoo&modestbranding=1&controls=0&showinfo=0&rel=0&iv_load_policy=3"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              loading="lazy"
+              title="Goldenview video"
+            />
+          </div>
+          <div className="video-wrap-vertical reveal video-mobile">
+            <iframe
+              src="https://www.youtube.com/embed/Wva-CCJvxyc?autoplay=1&mute=1&loop=1&playlist=Wva-CCJvxyc&modestbranding=1&controls=0&showinfo=0&rel=0&iv_load_policy=3"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              loading="lazy"
+              title="Goldenview video mobile"
+            />
           </div>
         </div>
       </section>
 
       {/* ABOUT */}
-      <section className="section-pad" id="o-nama">
+      <section id="o-nama" className="section-pad">
         <div className="container">
-          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center'}}>
-            <div className="reveal-left">
-              <img src="https://udruzenjeradar.rs/wp-content/uploads/2026/03/about-1.webp" alt="About" style={{borderRadius: 'var(--r-lg)', width: '100%'}} />
+          <div className="about-grid">
+            <div className="about-images reveal-left">
+              <div className="about-blob"></div>
+              <div className="about-img-main">
+                <Image src="/apt-images/apartman-1.webp" alt="Goldenview apartman" width={620} height={500} sizes="(max-width: 1024px) 80vw, 40vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div className="about-img-sec">
+                <Image src="/apt-images/apartman-2.webp" alt="Goldenview kuhinja" width={420} height={320} sizes="(max-width: 1024px) 50vw, 25vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
             </div>
-            <div className="reveal">
-              <div className="eyebrow" data-sr="O nama" data-en="About Us">O nama</div>
-              <h2 data-sr="Priča koja je počela sa snom" data-en="A story that began with a dream">Priča koja je počela sa snom</h2>
-              <p style={{marginTop: '1rem', color: 'var(--muted)', lineHeight: 1.6}} data-sr="Goldenview je nastao iz želje da stvorimo prostor gde se gosti osećaju kao kod kuće..." data-en="Goldenview was born from a desire to create a space where guests feel at home...">Goldenview je nastao iz želje da stvorimo prostor gde se gosti osećaju kao kod kuće...</p>
-              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '2rem'}}>
-                {[
-                  { num: '12', label_sr: 'Apartmana', label_en: 'Apartments' },
-                  { num: '150+', label_sr: 'Zadovoljnih gosta', label_en: 'Happy guests' },
-                  { num: '9.9', label_sr: 'Booking ocena', label_en: 'Booking rating' },
-                  { num: '20', label_sr: 'Godina iskustva', label_en: 'Yrs experience' }
-                ].map((stat, i) => (
-                  <div key={i} style={{textAlign: 'center'}}>
-                    <div style={{fontSize: '2rem', fontWeight: 800, color: 'var(--gold)'}} className="counter" data-target={parseInt(stat.num)}>{stat.num}</div>
-                    <div style={{fontSize: '0.85rem', color: 'var(--muted)', marginTop: '0.5rem'}} data-sr={stat.label_sr} data-en={stat.label_en}>{stat.label_sr}</div>
-                  </div>
-                ))}
+            <div className="about-content reveal-right">
+              <span className="eyebrow"><span data-sr="O nama" data-en="About us">O nama</span></span>
+              <h2>
+                <span data-sr="Mesto gde se odmor pravi" data-en="A stay designed">Mesto gde se odmor pravi</span><br />
+                <span className="cursive" data-sr="po vašoj meri" data-en="around you">po vašoj meri</span>
+              </h2>
+              <p className="about-text">
+                <span data-sr="Goldenview nije tipičan smeštaj u Sokobanji. Zamislili smo ga kao mesto gde svaki gost ima dovoljno prostora, privatnosti i pažnje — bez onog osećaja da ste jedan od stotinu. Apartmani su potpuno novi, svaki opremljen kuhinjom, klima-uređajem, smart TV-om i terasom. Ispred vas je bazen za opuštanje, a u prizemlju restoran koji služi domaću hranu od svežih, lokalnih namirnica."
+                      data-en="Goldenview isn't your typical Sokobanja accommodation. We built it as a place where every guest gets enough space, privacy, and attention — without feeling like one of a hundred. Brand new apartments, each with a kitchen, AC, smart TV, and a terrace. A pool just for our guests. A restaurant serving fresh, local Serbian food.">
+                  Goldenview nije tipičan smeštaj u Sokobanji. Zamislili smo ga kao mesto gde svaki gost ima dovoljno prostora, privatnosti i pažnje — bez onog osećaja da ste jedan od stotinu. Apartmani su potpuno novi, svaki opremljen kuhinjom, klima-uređajem, smart TV-om i terasom. Ispred vas je bazen za opuštanje, a u prizemlju restoran koji služi domaću hranu od svežih, lokalnih namirnica.
+                </span>
+              </p>
+              <div className="stats-grid">
+                <div className="stat-item reveal delay-1">
+                  <span className="stat-number counter" data-target="6">0</span>
+                  <span className="stat-label"><span data-sr="Tipova apartmana (32–51 m²)" data-en="Apartment types (32–51 m²)">Tipova apartmana (32–51 m²)</span></span>
+                </div>
+                <div className="stat-item reveal delay-2">
+                  <span className="stat-number counter" data-target="190">0</span>
+                  <span className="stat-label"><span data-sr="+ recenzija gostiju" data-en="+ guest reviews">+ recenzija gostiju</span></span>
+                </div>
+                <div className="stat-item reveal delay-3">
+                  <span className="stat-number">9.9</span>
+                  <span className="stat-label"><span data-sr="Ocena na Booking.com" data-en="Rating on Booking.com">Ocena na Booking.com</span></span>
+                </div>
+                <div className="stat-item reveal delay-4">
+                  <span className="stat-number">2.5h</span>
+                  <span className="stat-label"><span data-sr="Od Beograda" data-en="From Belgrade">Od Beograda</span></span>
+                </div>
               </div>
             </div>
           </div>
@@ -437,185 +245,220 @@ export default function Home() {
       </section>
 
       {/* SERVICES BENTO */}
-      <section className="section-pad" style={{background: 'var(--surface)'}}>
+      <section className="section-pad services-section">
         <div className="container">
-          <div className="eyebrow reveal" data-sr="Naše usluge" data-en="Our Services">Naše usluge</div>
-          <h2 className="reveal delay-1" data-sr="Sve što trebate za savršen boravak" data-en="Everything you need for a perfect stay">Sve što trebate za savršen boravak</h2>
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '3rem'}}>
-            {[
-              { title_sr: 'Spa & Wellness', title_en: 'Spa & Wellness', img: 'https://udruzenjeradar.rs/wp-content/uploads/2026/03/service-1.webp' },
-              { title_sr: 'Konferencijalni prostor', title_en: 'Conference Room', img: 'https://udruzenjeradar.rs/wp-content/uploads/2026/03/service-2.webp' },
-              { title_sr: 'Restoran', title_en: 'Restaurant', img: 'https://udruzenjeradar.rs/wp-content/uploads/2026/03/service-3.webp' }
-            ].map((service, i) => (
-              <div key={i} className="reveal" style={{position: 'relative', overflow: 'hidden', borderRadius: 'var(--r-lg)', height: '300px'}}>
-                <img src={service.img} alt={service.title_sr} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-                <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)', display: 'flex', alignItems: 'flex-end', padding: '1.5rem'}}>
-                  <h3 style={{color: '#fff'}} data-sr={service.title_sr} data-en={service.title_en}>{service.title_sr}</h3>
-                </div>
+          <div className="section-header reveal">
+            <span className="eyebrow"><span data-sr="Sve na jednom mestu" data-en="Everything in one place">Sve na jednom mestu</span></span>
+            <h2><span data-sr="Tri razloga zašto gosti dolaze ponovo" data-en="Three reasons guests keep coming back">Tri razloga zašto gosti dolaze ponovo</span></h2>
+          </div>
+          <div className="bento-grid">
+            <div className="bento-card reveal">
+              <Image src="/apt-images/apartman-3.webp" alt="Apartmani Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <div className="bento-overlay">
+                <div className="bento-pill" data-sr="APARTMANI" data-en="APARTMENTS">APARTMANI</div>
+                <div className="bento-title"><span data-sr="Prostor koji diše" data-en="Space to breathe">Prostor koji diše</span></div>
+                <Link href="/apartmani" className="bento-link"><span data-sr="Izaberi apartman →" data-en="Choose apartment →">Izaberi apartman →</span></Link>
               </div>
-            ))}
+            </div>
+            <div className="bento-card reveal delay-2">
+              <Image src="/spa-images/new/bazen-otvoreni.webp" alt="Wellness Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <div className="bento-overlay">
+                <div className="bento-pill">WELLNESS &amp; SPA</div>
+                <div className="bento-title"><span data-sr="Privatna oaza opuštanja" data-en="Private relaxation oasis">Privatna oaza opuštanja</span></div>
+                <Link href="/wellness" className="bento-link"><span data-sr="Saznaj više →" data-en="Learn more →">Saznaj više →</span></Link>
+              </div>
+            </div>
+            <div className="bento-card reveal delay-3">
+              <Image src="/rest-images/new/ambient-1.webp" alt="Restoran Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <div className="bento-overlay">
+                <div className="bento-pill" data-sr="RESTORAN" data-en="RESTAURANT">RESTORAN</div>
+                <div className="bento-title"><span data-sr="Ukusi koji se pamte" data-en="Flavours to remember">Ukusi koji se pamte</span></div>
+                <Link href="/restoran" className="bento-link"><span data-sr="Pogledaj meni →" data-en="View menu →">Pogledaj meni →</span></Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* APARTMENTS */}
-      <section className="section-pad" id="apartmani">
-        <div className="container">
-          <div className="eyebrow reveal" data-sr="Naš izbor" data-en="Our Selection">Naš izbor</div>
-          <h2 className="reveal delay-1" data-sr="Apartmani" data-en="Apartments">Apartmani</h2>
-          <div style={{marginTop: '3rem', position: 'relative'}}>
-            <div ref={aptTrackRef} style={{display: 'flex', transition: 'transform 0.5s ease-out'}}>
-              {['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6'].map((apt) => (
-                <div key={apt} style={{flex: '1 0 33.333%', minWidth: '33.333%', padding: '0.75rem'}}>
-                  <div className="reveal" style={{background: '#fff', borderRadius: 'var(--r-md)', overflow: 'hidden'}}>
-                    <div style={{position: 'relative', paddingBottom: '66.67%', overflow: 'hidden'}}>
-                      <img src={`https://udruzenjeradar.rs/wp-content/uploads/2026/03/apt-${apt.toLowerCase()}.webp`} alt={apt} style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover'}} />
-                      <div style={{position: 'absolute', top: '1rem', right: '1rem', background: 'var(--gold)', color: '#fff', padding: '0.5rem 1rem', borderRadius: 'var(--r-pill)', fontSize: '0.75rem', fontWeight: 700}}>{apt}</div>
+      {/* APARTMENTS SLIDER */}
+      <section id="apartmani" className="apts-section">
+        <div className="section-header reveal">
+          <span className="eyebrow"><span data-sr="Smeštaj" data-en="Accommodation">Smeštaj</span></span>
+          <h2><span data-sr="Izaberite apartman koji vam odgovara" data-en="Choose your perfect apartment">Izaberite apartman koji vam odgovara</span></h2>
+          <p>
+            <span data-sr="Dvanaest apartmana — od kompaktnog studija do porodičnog duplex-a. Svi sa kuhinjom, klimom, smart TV-om i pristupom bazenu."
+                  data-en="Twelve apartments — from a compact studio to a family duplex. All with kitchen, AC, smart TV and pool access.">
+              Dvanaest apartmana — od kompaktnog studija do porodičnog duplex-a. Svi sa kuhinjom, klimom, smart TV-om i pristupom bazenu.
+            </span>
+          </p>
+        </div>
+        <div className="apt-slider-wrap container">
+          <div className="apt-slider-track" ref={aptTrackRef}>
+            {APTS.map((apt) => (
+              <div key={apt.id} className="apt-card">
+                <div className="apt-img">
+                  <Image src={apt.img} alt={`${apt.id} ${apt.name_sr}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                  <span className="apt-badge">{apt.id} {apt.name_sr}</span>
+                </div>
+                <div className="apt-body">
+                  <h3><span className="cursive">{apt.id}</span> <span data-sr={apt.name_sr} data-en={apt.name_en}>{apt.name_sr}</span></h3>
+                  <p className="apt-meta">{apt.size} m² · <span data-sr={apt.cap_sr} data-en={apt.cap_en}>{apt.cap_sr}</span></p>
+                  <div className="apt-pills">
+                    <span className="apt-pill">WiFi</span>
+                    <span className="apt-pill"><span data-sr="Klima" data-en="A/C">Klima</span></span>
+                    <span className="apt-pill">Smart TV</span>
+                    <span className="apt-pill"><span data-sr="Kuhinja" data-en="Kitchen">Kuhinja</span></span>
+                    <span className="apt-pill"><span data-sr="Terasa" data-en="Terrace">Terasa</span></span>
+                  </div>
+                  <div className="apt-footer">
+                    <div className="apt-price-wrap">
+                      <span className="price-from"><span data-sr="Cena po noći" data-en="Price per night">Cena po noći</span></span>
+                      <span className="price-amount">kontakt</span>
                     </div>
-                    <div style={{padding: '1.5rem'}}>
-                      <h3>{apt}</h3>
-                      <p style={{color: 'var(--muted)', fontSize: '0.85rem', margin: '0.5rem 0'}}>Moderni apartman za 2-4 gosta</p>
-                      <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1rem 0'}}>
-                        {['WiFi', 'Kuhinja', 'Terasa'].map(tag => <span key={tag} style={{fontSize: '0.7rem', background: 'var(--gold-10)', color: 'var(--gold)', padding: '0.4rem 0.8rem', borderRadius: 'var(--r-pill)'}}>{tag}</span>)}
-                      </div>
-                      <div style={{fontSize: '1.25rem', fontWeight: 800, color: 'var(--gold)', margin: '1rem 0'}}>€{50 + Math.random() * 30 | 0}/noć</div>
-                      <a href="tel:063604808" className="btn btn-gold" style={{width: '100%', marginTop: '1rem'}}>Rezerviši</a>
-                    </div>
+                    <a href="tel:063604808" className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></a>
                   </div>
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+          <div className="apt-slider-nav">
+            <button className="apt-slider-btn" onClick={() => goApt(aptIdx - 1)} aria-label="Prev">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button className="apt-slider-btn" onClick={() => goApt(aptIdx + 1)} aria-label="Next">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+          <div className="apt-detail-btn">
+            <Link href="/apartmani" className="btn btn-gold"><span data-sr="Pogledaj sve apartmane" data-en="View all apartments">Pogledaj sve apartmane</span></Link>
+          </div>
+        </div>
+      </section>
+
+      {/* RESTAURANT */}
+      <section id="restoran" className="section-pad">
+        <div className="container">
+          <div className="rest-grid">
+            <div className="rest-content reveal-left">
+              <span className="eyebrow"><span data-sr="Restoran" data-en="Restaurant">Restoran</span></span>
+              <h2>
+                <span data-sr="Domaća jela" data-en="Local dishes">Domaća jela</span> <span className="cursive" data-sr="sa svežim namirnicama" data-en="with fresh ingredients">sa svežim namirnicama</span>
+              </h2>
+              <p className="rest-text">
+                <span data-sr="Restoran u sklopu kompleksa, otvoren za sve goste. Roštilj, paste, riba, salate i deserti. Svaki obrok je pripremljen od svežih lokalnih namirnica."
+                      data-en="A restaurant within the complex, open to all guests. Grill, pasta, fish, salads and desserts. Every meal prepared from fresh local ingredients.">
+                  Restoran u sklopu kompleksa, otvoren za sve goste. Roštilj, paste, riba, salate i deserti. Svaki obrok je pripremljen od svežih lokalnih namirnica.
+                </span>
+              </p>
+              <div className="rest-tags">
+                <span className="rest-tag"><span data-sr="Roštilj" data-en="Grill">Roštilj</span></span>
+                <span className="rest-tag"><span data-sr="Domaća kuhinja" data-en="Local cuisine">Domaća kuhinja</span></span>
+                <span className="rest-tag"><span data-sr="Doručak" data-en="Breakfast">Doručak</span></span>
+                <span className="rest-tag"><span data-sr="Lounge bar" data-en="Lounge bar">Lounge bar</span></span>
+              </div>
+              <Link href="/restoran" className="btn btn-gold"><span data-sr="Pogledaj restoran" data-en="View restaurant">Pogledaj restoran</span></Link>
             </div>
-            <div style={{marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem'}}>
-              <button onClick={() => goApt(currentAptSlide - 1)} className="btn btn-outline">←</button>
-              <button onClick={() => goApt(currentAptSlide + 1)} className="btn btn-outline">→</button>
+            <div className="rest-mosaic reveal-right">
+              <div className="rest-mosaic-item">
+                <Image src="/rest-images/new/food-steak.webp" alt="Steak" width={400} height={440} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div className="rest-mosaic-item">
+                <Image src="/rest-images/new/food-pasta.webp" alt="Pasta" width={300} height={220} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div className="rest-mosaic-item">
+                <Image src="/rest-images/new/dorucak-1.webp" alt="Doručak" width={300} height={220} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section-pad" style={{background: 'var(--surface)'}}>
-        <div className="container">
-          <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-            <div style={{display: 'inline-flex', alignItems: 'center', gap: '1rem', background: '#fff', padding: '1rem 1.5rem', borderRadius: 'var(--r-md)'}}>
-              <span style={{fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--muted)'}}>Booking.com</span>
-              <span style={{fontSize: '1.5rem', fontWeight: 800, color: 'var(--gold)'}}>9.9</span>
-              <span style={{fontSize: '0.9rem', color: 'var(--gold)'}}>★★★★★</span>
-              <span style={{fontSize: '0.75rem', color: 'var(--muted)'}}>190+ recenzija</span>
+      <section className="testi-section">
+        <div className="section-header reveal">
+          <span className="eyebrow"><span data-sr="Recenzije" data-en="Reviews">Recenzije</span></span>
+          <h2><span data-sr="Šta gosti kažu o nama" data-en="What guests say about us">Šta gosti kažu o nama</span></h2>
+          <div className="booking-authority">
+            <span className="booking-logo-text">Booking.com</span>
+            <div className="booking-divider"></div>
+            <div>
+              <div className="booking-score-big">9.9</div>
+              <div className="booking-score-label">/10</div>
+            </div>
+            <div className="booking-divider"></div>
+            <div>
+              <div className="booking-reviews"><span className="testi-stars">★★★★★</span></div>
+              <div className="booking-reviews"><span data-sr="190+ recenzija" data-en="190+ reviews">190+ recenzija</span></div>
             </div>
           </div>
-          <div ref={testiTrackRef} style={{display: 'flex', transition: 'transform 0.5s ease-out'}}>
-            {[
-              { name: 'Marko J.', text_sr: 'Odličan odnos prema gostima, čista i lepa soba...', text_en: 'Great service, clean and beautiful rooms...' },
-              { name: 'Ana K.', text_sr: 'Restoran je odličan, hrana je domaća i ukusna...', text_en: 'The restaurant is excellent, homemade food...' },
-              { name: 'Petar V.', text_sr: 'Odličnog, miran, pogodan za odmor i relaksaciju...', text_en: 'Perfect, peaceful, great for rest...' },
-              { name: 'Tanja M.', text_sr: 'Vrlo ljubazni vlasnici, sve je bilo savršeno...', text_en: 'Very kind owners, everything was perfect...' },
-              { name: 'Dragan S.', text_sr: 'Preporučujem svima koji traže mir i kvalitet...', text_en: 'I recommend to everyone looking for peace...' },
-              { name: 'Jelena T.', text_sr: 'Vraćam se svake godine, obitelj je kao doma...', text_en: 'I come back every year, family atmosphere...' }
-            ].map((testi, i) => (
-              <div key={i} style={{flex: '1 0 50%', minWidth: '50%', padding: '0.75rem'}}>
-                <div className="reveal" style={{background: '#fff', padding: '1.5rem', borderRadius: 'var(--r-md)', height: '100%'}}>
-                  <div style={{color: 'var(--gold)', marginBottom: '1rem'}}>★★★★★</div>
-                  <p style={{color: 'var(--muted)', lineHeight: 1.6, marginBottom: '1rem'}} data-sr={testi.text_sr} data-en={testi.text_en}>{testi.text_sr}</p>
-                  <div style={{fontSize: '0.9rem', fontWeight: 700}}>{testi.name}</div>
-                  <div style={{fontSize: '0.75rem', color: 'var(--muted)'}}>Booking.com verified</div>
-                </div>
+        </div>
+        <div className="testi-carousel container">
+          <div className="testi-track" ref={testiTrackRef}>
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="testi-card" style={{ flex: '0 0 calc(50% - 0.75rem)' }}>
+                <div className="testi-stars">★★★★★</div>
+                <p className="testi-quote">"<span data-sr={t.text_sr} data-en={t.text_en}>{t.text_sr}</span>"</p>
+                <div className="testi-headline">Booking.com</div>
+                <div className="testi-author">{t.name}</div>
+                <div className="testi-meta"><span data-sr="Verifikovan gost" data-en="Verified guest">Verifikovan gost</span></div>
               </div>
             ))}
           </div>
-          <div style={{marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem'}}>
-            <button onClick={() => goTesti(currentTestiSlide - 1)} className="btn btn-outline">←</button>
-            <button onClick={() => goTesti(currentTestiSlide + 1)} className="btn btn-outline">→</button>
+          <div className="testi-controls">
+            <button className="testi-btn" onClick={() => goTesti(testiIdx - 1)} aria-label="Prev">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button className="testi-btn" onClick={() => goTesti(testiIdx + 1)} aria-label="Next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
       </section>
 
       {/* GALLERY */}
-      <section className="section-pad" id="galerija">
+      <section id="galerija" className="gallery-section">
         <div className="container">
-          <div className="eyebrow reveal" data-sr="Vizuelni prikaz" data-en="Visual Tour">Vizuelni prikaz</div>
-          <h2 className="reveal delay-1" data-sr="Galerija" data-en="Gallery">Galerija</h2>
-          <div style={{marginTop: '3rem'}}>
-            <div ref={galleryTrackRef} style={{display: 'flex', transition: 'transform 0.5s ease-out'}}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((img) => (
-                <div key={img} style={{flex: '1 0 33.333%', minWidth: '33.333%', padding: '0.75rem', cursor: 'pointer'}}>
-                  <div className="reveal" onClick={() => {
-                    setLightboxImage(`https://udruzenjeradar.rs/wp-content/uploads/2026/03/gallery-${img}.webp`);
-                    setShowLightbox(true);
-                  }} style={{position: 'relative', paddingBottom: '100%', overflow: 'hidden', borderRadius: 'var(--r-md)'}}>
-                    <img src={`https://udruzenjeradar.rs/wp-content/uploads/2026/03/gallery-${img}.webp`} alt={`Gallery ${img}`} style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover'}} />
-                  </div>
+          <div className="section-header reveal">
+            <span className="eyebrow"><span data-sr="Galerija" data-en="Gallery">Galerija</span></span>
+            <h2><span data-sr="Pogledajte naš mali raj" data-en="See our little paradise">Pogledajte naš mali raj</span></h2>
+          </div>
+          <div className="gallery-slider-wrap">
+            <div className="gallery-slider-track" ref={galleryTrackRef}>
+              {GALLERY.map((src, i) => (
+                <div key={i} className="gallery-slide" onClick={() => setLightbox(src)}>
+                  <Image src={src} alt={`Gallery ${i + 1}`} width={400} height={520} sizes="(max-width: 768px) 80vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               ))}
             </div>
-            <div style={{marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem'}}>
-              <button onClick={() => goGallery(currentGallerySlide - 1)} className="btn btn-outline">←</button>
-              <button onClick={() => goGallery(currentGallerySlide + 1)} className="btn btn-outline">→</button>
+            <div className="gallery-nav">
+              <button className="gallery-btn" onClick={() => goGal(galIdx - 1)} aria-label="Prev">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button className="gallery-btn" onClick={() => goGal(galIdx + 1)} aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-pad" style={{background: 'linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05))', backgroundImage: 'url(https://udruzenjeradar.rs/wp-content/uploads/2026/03/cta-bg.webp)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
-        <div className="container" style={{textAlign: 'center'}}>
-          <div className="eyebrow reveal" data-sr="Spremni?" data-en="Ready?">Spremni?</div>
-          <h2 className="reveal delay-1" data-sr="Rezervišite svoju ideju odmora" data-en="Book your ideal getaway">Rezervišite svoju ideju odmora</h2>
-          <div className="reveal delay-2" style={{marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap'}}>
-            <a href="tel:063604808" className="btn btn-gold">Pozovi nas: 063 / 604-808</a>
-            <a href="#apartmani" className="btn btn-outline">Pogledaj apartmane</a>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        eyebrowSr="Spremni za odmor?"
+        eyebrowEn="Ready for a break?"
+        titleSr="Vidimo se u "
+        titleEn="See you in "
+        titleCursiveSr="Sokobanji"
+        titleCursiveEn="Sokobanja"
+        bodySr="Pozovite nas za rezervaciju apartmana ili stola u restoranu. Biće nam zadovoljstvo da vas ugostimo."
+        bodyEn="Call us to book an apartment or a table at the restaurant. It will be our pleasure to host you."
+      />
 
-      {/* FOOTER */}
-      <footer style={{background: 'var(--dark)', color: '#fff', padding: '3rem 0 1rem'}}>
-        <div className="container">
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '2rem'}}>
-            <div>
-              <h4 style={{fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem'}}>Goldenview</h4>
-              <p style={{color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', lineHeight: 1.6}}>Moderni apartmani sa bazenom i domaći restoran u Sokobanji. Najbolje ocene, direktne rezervacije, najjednostavnije...</p>
-            </div>
-            <div>
-              <h4 style={{fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem'}} data-sr="Apartmani" data-en="Apartments">Apartmani</h4>
-              <ul style={{fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', lineHeight: 2}}>
-                <li><a href="#apartmani" style={{color: 'inherit'}}>Pogledaj sve apartmane</a></li>
-                <li><a href="#apartmani" style={{color: 'inherit'}}>Rezerviši sada</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 style={{fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem'}} data-sr="Kontakt" data-en="Contact">Kontakt</h4>
-              <ul style={{fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', lineHeight: 2}}>
-                <li><a href="tel:063604808" style={{color: 'var(--gold)'}}>063 / 604-808</a></li>
-                <li><a href="mailto:info@goldenview.rs" style={{color: 'var(--gold)'}}>info@goldenview.rs</a></li>
-              </ul>
-            </div>
-          </div>
-          <div style={{paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)'}}>
-            <p>© 2026 Goldenview Sokobanja. Sva prava zadržana.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
-
-
-      {/* AVAILABILITY MODAL */}
-      {showAvailSuccess && (
-        <div style={{position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100}}>
-          <div style={{background: '#fff', padding: '2rem', borderRadius: 'var(--r-lg)', maxWidth: '400px', textAlign: 'center'}}>
-            <div style={{color: 'var(--gold)', fontSize: '3rem', marginBottom: '1rem'}}>✓</div>
-            <h3 data-sr="Zahvaljujemo!" data-en="Thank you!">Zahvaljujemo!</h3>
-            <p style={{color: 'var(--muted)', marginTop: '1rem'}} data-sr="Uskoro ćemo Vas kontaktirati" data-en="We'll contact you soon">Uskoro ćemo Vas kontaktirati</p>
-            <button onClick={() => setShowAvailSuccess(false)} className="btn btn-gold" style={{width: '100%', marginTop: '1rem'}} data-sr="Zatvori" data-en="Close">Zatvori</button>
-          </div>
-        </div>
-      )}
-
-      {/* LIGHTBOX */}
-      {showLightbox && (
-        <div style={{position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100}}>
-          <button onClick={() => setShowLightbox(false)} style={{position: 'absolute', top: '2rem', right: '2rem', background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer'}}>✕</button>
-          <img src={lightboxImage} alt="Gallery" style={{maxWidth: '90%', maxHeight: '90%', objectFit: 'contain'}} />
+      {lightbox && (
+        <div className="lightbox open" onClick={() => setLightbox(null)}>
+          <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close">×</button>
+          <Image src={lightbox} alt="Gallery" width={1200} height={900} sizes="90vw" style={{ maxWidth: '90vw', maxHeight: '90vh', objectFit: 'contain', width: 'auto', height: 'auto' }} />
         </div>
       )}
     </>

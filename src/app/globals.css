@@ -1007,3 +1007,390 @@
       .promo-grid { grid-template-columns:1fr; max-width:440px; margin-left:auto; margin-right:auto; }
       .promo-img { height:220px; }
     }
+
+    /* ===================== BILINGUAL VISIBILITY ===================== */
+    [data-lang="sr"] [data-en]:not(input):not(textarea):not(select),
+    [data-lang="en"] [data-sr]:not(input):not(textarea):not(select) { display:none !important; }
+
+    /* ===================== ACCESSIBILITY ===================== */
+    :focus-visible {
+      outline:2px solid var(--gold);
+      outline-offset:3px;
+      border-radius:6px;
+    }
+    .btn:focus-visible {
+      outline-offset:4px;
+    }
+    .sr-only {
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    .skip-link {
+      position:absolute; top:-100px; left:1rem; z-index:9999;
+      background:var(--gold); color:#fff; padding:0.7rem 1.2rem;
+      border-radius:var(--r-pill); font-weight:700; font-size:0.85rem;
+      transition:top 0.25s;
+    }
+    .skip-link:focus { top:1rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration:0.001s !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.001s !important;
+        scroll-behavior:auto !important;
+      }
+      .marquee-track, body::before { animation:none !important; }
+      .reveal, .reveal-left, .reveal-right {
+        opacity:1 !important; transform:none !important;
+      }
+    }
+
+    /* Disable smooth scroll on mobile to avoid jank */
+    @media (max-width:768px) {
+      html { scroll-behavior:auto; }
+    }
+
+    /* ===================== PAGE HERO (apartmani / restoran / spa) ===================== */
+    .page-hero {
+      position:relative; min-height:55vh;
+      display:flex; align-items:center; justify-content:center;
+      padding:8rem 2rem 4rem; overflow:hidden;
+    }
+    .page-hero-bg { position:absolute; inset:0; z-index:0; }
+    .page-hero-bg img { width:100%; height:100%; object-fit:cover; }
+    .page-hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(15,14,12,0.55) 0%, rgba(15,14,12,0.7) 100%);
+    }
+    .page-hero-content {
+      position:relative; z-index:2; max-width:800px; text-align:center; color:#fff;
+    }
+    .page-hero-content .eyebrow { color:var(--gold-light); }
+    .page-hero-content h1 { color:#fff; margin:0.5rem 0 1.2rem; }
+    .page-hero-content h1 .cursive { color:var(--gold-light); display:block; }
+    .page-hero-content p { color:rgba(255,255,255,0.85); font-size:1.05rem; line-height:1.7; max-width:600px; margin:0 auto; }
+    @media (max-width:768px) {
+      .page-hero { min-height:45vh; padding:7rem 1.5rem 3rem; }
+    }
+
+    /* ===================== KONTAKT PAGE ===================== */
+    .contact-cards {
+      display:grid; grid-template-columns:1fr 1fr; gap:2rem;
+      padding-top:6rem;
+    }
+    .contact-card {
+      background:#fff; border-radius:var(--r-lg); overflow:hidden;
+      box-shadow:0 8px 32px rgba(0,0,0,0.08);
+      display:flex; flex-direction:column;
+      transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s;
+    }
+    .contact-card:hover { transform:translateY(-6px); box-shadow:0 20px 56px rgba(0,0,0,0.13); }
+    .card-img { position:relative; height:240px; overflow:hidden; }
+    .card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; }
+    .contact-card:hover .card-img img { transform:scale(1.06); }
+    .card-img::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(15,14,12,0.45), transparent 60%);
+    }
+    .card-body { padding:1.8rem 1.6rem 1.6rem; display:flex; flex-direction:column; gap:1rem; flex:1; }
+    .card-body .eyebrow { margin-bottom:0; }
+    .card-body h3 { font-size:1.55rem; margin-bottom:0.2rem; }
+    .card-phone {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      font-size:1.4rem; font-weight:800; color:var(--gold);
+      width:fit-content;
+    }
+    .card-phone:hover { color:var(--gold-light); }
+    .card-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .card-tag {
+      background:var(--gold-10); color:var(--gold); font-size:0.72rem;
+      font-weight:600; padding:0.3rem 0.7rem; border-radius:var(--r-pill);
+    }
+    .card-info {
+      margin-top:auto; padding-top:1rem; border-top:1px solid var(--border);
+      display:flex; flex-direction:column; gap:0.6rem;
+    }
+    .card-info-row {
+      display:flex; align-items:flex-start; gap:0.6rem;
+      font-size:0.85rem; color:var(--ink-80); line-height:1.4;
+    }
+    .card-info-row svg { color:var(--gold); flex-shrink:0; margin-top:1px; }
+    .card-info-row a { color:inherit; }
+    .card-info-row a:hover { color:var(--gold); }
+
+    .map-wrap {
+      margin-top:3rem; border-radius:var(--r-lg); overflow:hidden;
+      border:1px solid var(--border); box-shadow:0 8px 32px rgba(0,0,0,0.06);
+      height:380px;
+    }
+    .map-wrap iframe { width:100%; height:100%; border:none; display:block; }
+
+    .shared-info {
+      text-align:center; margin-top:2rem; font-size:0.9rem; color:var(--muted);
+    }
+    .shared-info a { color:var(--gold); font-weight:600; }
+    .shared-info a:hover { color:var(--gold-light); }
+
+    @media (max-width:1024px) {
+      .contact-cards { gap:1.5rem; }
+    }
+    @media (max-width:768px) {
+      .contact-cards { grid-template-columns:1fr; gap:1.5rem; padding-top:4rem; }
+      .card-img { height:200px; }
+      .map-wrap { height:260px; }
+    }
+
+    /* ===================== FEATURE ROW (restoran / spa) ===================== */
+    .feature-row {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:3rem; align-items:center;
+    }
+    .feature-row.reverse { direction:rtl; }
+    .feature-row.reverse > * { direction:ltr; }
+    .feature-img {
+      height:440px; border-radius:var(--r-lg); overflow:hidden;
+      box-shadow:0 16px 48px rgba(0,0,0,0.12);
+    }
+    .feature-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+    .feature-img:hover img { transform:scale(1.05); }
+    .feature-content h2 { margin:0.5rem 0 1.2rem; }
+    .feature-content h2 .cursive { color:var(--gold); }
+    .feature-content p { color:var(--muted); line-height:1.75; margin-bottom:1.5rem; }
+    .feature-list { display:flex; flex-direction:column; gap:0.8rem; margin-top:1rem; }
+    .feature-list li { display:flex; align-items:center; gap:0.7rem; font-size:0.95rem; color:var(--ink-80); list-style:none; }
+    .feature-check {
+      width:28px; height:28px; border-radius:50%;
+      background:var(--gold); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    @media (max-width:1024px) {
+      .feature-row { grid-template-columns:1fr; gap:2rem; }
+      .feature-row.reverse { direction:ltr; }
+      .feature-img { height:340px; }
+    }
+
+    /* ===================== RESTORAN — LOUNGE / COCKTAIL / FOOD ===================== */
+    .cat-label {
+      display:inline-flex; align-items:center; gap:0.7rem;
+      font-family:'Cormorant Garamond', serif; font-style:italic;
+      font-size:1.1rem; color:var(--gold);
+    }
+    .cat-label::before {
+      content:''; width:28px; height:2px; background:var(--gold);
+    }
+
+    .lounge-grid {
+      display:grid;
+      grid-template-columns:1.1fr 1fr 1fr;
+      grid-template-rows:1fr 1fr;
+      gap:1rem; margin-top:2.5rem;
+    }
+    .lounge-tile {
+      position:relative; border-radius:var(--r-lg); overflow:hidden;
+      aspect-ratio:1/1;
+    }
+    .lounge-tile:first-child { grid-row:1/3; aspect-ratio:auto; }
+    .lounge-tile:last-child { grid-column:span 2; aspect-ratio:16/9; }
+    .lounge-tile img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+    .lounge-tile:hover img { transform:scale(1.06); }
+    .lounge-cap {
+      position:absolute; bottom:1.2rem; left:1.2rem; right:1.2rem;
+      color:#fff; z-index:2;
+    }
+    .lounge-cap .label {
+      display:inline-block;
+      background:rgba(201,168,76,0.85); color:#fff;
+      padding:0.3rem 0.85rem; border-radius:var(--r-pill);
+      font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;
+      margin-bottom:0.5rem;
+    }
+    .lounge-cap .cursive {
+      font-family:'Cormorant Garamond', serif; font-style:italic;
+      font-size:1.4rem; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,0.6);
+    }
+
+    .cocktail-strip {
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem;
+      margin-top:2rem;
+    }
+    .cocktail-card {
+      border-radius:var(--r-lg); overflow:hidden;
+      aspect-ratio:3/4; box-shadow:0 6px 24px rgba(0,0,0,0.08);
+    }
+    .cocktail-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+    .cocktail-card:hover img { transform:scale(1.06); }
+
+    .food-gallery {
+      display:grid; grid-template-columns:repeat(6, 1fr); gap:1rem;
+      margin-top:2.5rem;
+    }
+    .food-cell { border-radius:var(--r-md); overflow:hidden; aspect-ratio:1/1; }
+    .food-cell img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+    .food-cell:hover img { transform:scale(1.05); }
+    .food-cell.span-2 { grid-column:span 2; }
+    .food-cell.span-3 { grid-column:span 3; }
+    .food-cell.tall { aspect-ratio:1/1.15; }
+    .food-cell.wide { aspect-ratio:1.35/1; }
+
+    .photo-grid {
+      display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem;
+      margin-top:2.5rem;
+    }
+    .photo-card {
+      border-radius:var(--r-md); overflow:hidden;
+      aspect-ratio:1/1.1; box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+    .photo-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+    .photo-card:hover img { transform:scale(1.06); }
+
+    .menu-banner {
+      display:grid; grid-template-columns:1fr 1fr;
+      background:var(--dark); border-radius:var(--r-lg); overflow:hidden;
+      max-height:360px; margin-top:3rem; position:relative;
+    }
+    .menu-banner-body { padding:2.5rem 2rem; display:flex; flex-direction:column; justify-content:center; color:#fff; }
+    .menu-banner-badge {
+      font-size:0.7rem; font-weight:700; color:var(--gold-light);
+      letter-spacing:0.14em; text-transform:uppercase; margin-bottom:0.5rem;
+    }
+    .menu-banner-body h3 { font-size:1.6rem; color:#fff; margin-bottom:0.8rem; line-height:1.2; }
+    .menu-banner-body h3 .cursive { color:var(--gold-light); }
+    .menu-banner-checks {
+      display:flex; flex-direction:column; gap:0.5rem;
+      font-size:0.88rem; color:rgba(255,255,255,0.8); margin-bottom:1.5rem;
+    }
+    .menu-banner-checks li { display:flex; align-items:center; gap:0.5rem; list-style:none; }
+    .menu-banner-checks svg { color:var(--gold); flex-shrink:0; }
+    .menu-banner-media { position:relative; }
+    .menu-banner-media img { width:100%; height:100%; object-fit:cover; }
+    .menu-banner-media::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to right, var(--dark) 0%, rgba(26,24,21,0.55) 40%, transparent 100%);
+    }
+    .menu-banner-btn { width:fit-content; }
+
+    .info-grid {
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;
+      margin-top:2.5rem;
+    }
+    .info-card {
+      background:#fff; padding:2rem 1.5rem; border-radius:var(--r-lg);
+      text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.05);
+      transition:transform 0.3s, box-shadow 0.3s;
+    }
+    .info-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.08); }
+    .info-icon {
+      width:54px; height:54px; background:var(--gold-10);
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      color:var(--gold); margin:0 auto 1rem;
+    }
+    .info-card h4 { font-size:1rem; margin-bottom:0.5rem; font-weight:700; }
+    .info-card p { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+
+    @media (max-width:1024px) {
+      .lounge-grid { grid-template-columns:1fr 1fr; }
+      .lounge-tile:first-child { grid-row:1/3; }
+      .lounge-tile:last-child { grid-column:span 2; }
+      .food-gallery { grid-template-columns:repeat(4, 1fr); }
+      .food-cell.span-3 { grid-column:span 2; }
+      .photo-grid { grid-template-columns:repeat(2, 1fr); }
+      .info-grid { grid-template-columns:1fr; }
+      .menu-banner { max-height:none; }
+    }
+    @media (max-width:768px) {
+      .lounge-grid, .cocktail-strip { grid-template-columns:1fr 1fr; }
+      .lounge-tile:first-child { grid-row:auto; }
+      .lounge-tile:last-child { grid-column:auto; }
+      .food-gallery { grid-template-columns:repeat(2, 1fr); }
+      .food-cell.span-2, .food-cell.span-3 { grid-column:span 1; }
+      .menu-banner { grid-template-columns:1fr; }
+      .menu-banner-media { order:-1; height:200px; }
+      .menu-banner-media::after { background:linear-gradient(to bottom, transparent 0%, var(--dark) 100%); }
+    }
+
+    /* ===================== SPA BENTO ===================== */
+    .spa-bento {
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem;
+      margin-top:2.5rem;
+    }
+    .spa-bento-tile {
+      position:relative; border-radius:var(--r-lg); overflow:hidden;
+      aspect-ratio:4/5; box-shadow:0 10px 32px rgba(0,0,0,0.10);
+    }
+    .spa-bento-tile.wide { grid-column:span 2; aspect-ratio:16/9; }
+    .spa-bento-tile img { width:100%; height:100%; object-fit:cover; transition:transform 0.8s ease; }
+    .spa-bento-tile:hover img { transform:scale(1.05); }
+    .spa-bento-cap {
+      position:absolute; bottom:1.2rem; left:1.2rem; right:1.2rem;
+      color:#fff; z-index:2;
+    }
+    .spa-bento-cap .label {
+      display:inline-block; background:rgba(201,168,76,0.85); color:#fff;
+      padding:0.3rem 0.85rem; border-radius:var(--r-pill);
+      font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;
+      margin-bottom:0.4rem;
+    }
+    .spa-bento-cap .cursive { font-size:1.3rem; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,0.6); }
+
+    .photo-strip {
+      display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem;
+      margin-top:1.2rem;
+    }
+    .photo-strip-card {
+      border-radius:var(--r-md); overflow:hidden;
+      aspect-ratio:1/1.1; box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+    .photo-strip-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+    .photo-strip-card:hover img { transform:scale(1.08); }
+
+    @media (max-width:1024px) {
+      .spa-bento { grid-template-columns:repeat(2, 1fr); }
+      .spa-bento-tile.wide { grid-column:span 2; }
+    }
+    @media (max-width:768px) {
+      .spa-bento { grid-template-columns:1fr; }
+      .spa-bento-tile, .spa-bento-tile.wide { aspect-ratio:4/3; grid-column:auto; }
+      .photo-strip { grid-template-columns:repeat(2, 1fr); }
+    }
+
+    /* ===================== APARTMANI STANDALONE PAGE ===================== */
+    .apt-grid {
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;
+      margin-top:3rem;
+    }
+    .apt-grid .apt-card { flex:none; }
+
+    .amenities-section {
+      background:var(--surface); border-radius:2rem;
+      margin:0 1.5rem; padding:4rem 2rem;
+    }
+    .amenities-grid {
+      display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem;
+      margin-top:2.5rem;
+    }
+    .amenity-card {
+      background:#fff; padding:2rem 1.5rem; border-radius:var(--r-lg);
+      text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.05);
+      transition:transform 0.3s, box-shadow 0.3s;
+    }
+    .amenity-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.08); }
+    .amenity-icon {
+      width:60px; height:60px; background:var(--gold-10);
+      border:1.5px solid rgba(201,168,76,0.3);
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1rem; color:var(--gold);
+    }
+    .amenity-card h4 { font-size:1rem; margin-bottom:0.4rem; font-weight:700; }
+    .amenity-card p { font-size:0.83rem; color:var(--muted); line-height:1.5; }
+
+    @media (max-width:1024px) {
+      .apt-grid { grid-template-columns:repeat(2, 1fr); }
+      .amenities-grid { grid-template-columns:repeat(3, 1fr); }
+    }
+    @media (max-width:768px) {
+      .apt-grid { grid-template-columns:1fr; max-width:440px; margin-left:auto; margin-right:auto; }
+      .amenities-grid { grid-template-columns:repeat(2, 1fr); }
+      .amenities-section { margin:0 0.75rem; padding:3rem 1.25rem; }
+    }
