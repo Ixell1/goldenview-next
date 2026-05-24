@@ -109,7 +109,7 @@ export default function KontaktPage() {
               &nbsp;·&nbsp;
               <a href="https://www.instagram.com/goldenview.gastrostay/" target="_blank" rel="noopener noreferrer">Instagram</a>
               &nbsp;|&nbsp;
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+              <a href="https://www.facebook.com/p/Golden-View-apartmani-100094563064659/" target="_blank" rel="noopener noreferrer">Facebook</a>
             </p>
           </div>
         </div>

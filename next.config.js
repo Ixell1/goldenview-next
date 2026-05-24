@@ -5,6 +5,7 @@ const nextConfig = {
     formats: ['image/webp'],
     remotePatterns: [
       { protocol: 'https', hostname: 'udruzenjeradar.rs', pathname: '/wp-content/uploads/**' },
+      { protocol: 'https', hostname: 'www.vaucerisrbija.com', pathname: '/images/**' },
     ],
   },
 };
