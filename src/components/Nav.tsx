@@ -13,7 +13,7 @@ const LINKS: NavLink[] = [
   { href: '/restoran', sr: 'Restoran', en: 'Restaurant' },
   { href: '/#destinacija', sr: 'Destinacija', en: 'Destination' },
   { href: '/wellness', sr: 'Wellness', en: 'Wellness' },
-  { href: '/#galerija', sr: 'Galerija', en: 'Gallery' },
+  { href: '/galerija', sr: 'Galerija', en: 'Gallery' },
   { href: '/kontakt', sr: 'Kontakt', en: 'Contact' },
 ];
 
