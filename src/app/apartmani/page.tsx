@@ -56,7 +56,7 @@ const ICONS: Record<string, React.ReactElement> = {
 export default function ApartmaniPage() {
   return (
     <>
-      <Nav active="/apartmani" />
+      <Nav active="/apartmani" onDarkHero />
       <RevealOnScroll />
 
       {/* HERO */}

@@ -21,7 +21,7 @@ export default function RestoranPage() {
   return (
     <>
       <RestaurantSchema />
-      <Nav active="/restoran" />
+      <Nav active="/restoran" onDarkHero />
       <RevealOnScroll />
 
       {/* HERO */}

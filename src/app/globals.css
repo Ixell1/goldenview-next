@@ -144,6 +144,16 @@
       transition:all 0.25s;
     }
     .nav-links a:hover { color:var(--ink); background:var(--gold-10); }
+    /* Nav variant for pages with a dark page-hero — keeps text legible on
+       a dark image background until the user scrolls past it. */
+    .nav.nav-on-hero:not(.scrolled) .nav-links a { color:rgba(255,255,255,0.92); }
+    .nav.nav-on-hero:not(.scrolled) .nav-links a:hover { color:#fff; background:rgba(255,255,255,0.16); }
+    .nav.nav-on-hero:not(.scrolled) .nav-phone { color:#fff; }
+    .nav.nav-on-hero:not(.scrolled) .nav-phone:hover { color:var(--gold-light); }
+    .nav.nav-on-hero:not(.scrolled) .nav-hamburger span { background:#fff; }
+    .nav.nav-on-hero:not(.scrolled) .lang-toggle { background:rgba(255,255,255,0.18); }
+    .nav.nav-on-hero:not(.scrolled) .lang-btn { color:rgba(255,255,255,0.8); }
+    .nav.nav-on-hero:not(.scrolled) .lang-btn.active { background:var(--gold); color:#fff; }
     .nav-right { display:flex; align-items:center; gap:1rem; margin-left:1rem; }
     .nav-phone {
       font-size:0.85rem; font-weight:700; color:var(--ink);
@@ -586,9 +596,10 @@
     .rest-mosaic-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; }
     .rest-mosaic-item:hover img { transform:scale(1.06); }
 
-    /* SPA bento overlay (clean variant for wellness cards) */
+    /* SPA bento overlay (clean variant for wellness cards) — stronger
+       gradient so cursive titles stay readable even on bright pool imagery. */
     .spa-overlay-clean {
-      background:linear-gradient(to top, rgba(15,14,12,0.78) 0%, rgba(15,14,12,0.10) 50%, transparent 100%);
+      background:linear-gradient(to top, rgba(15,14,12,0.92) 0%, rgba(15,14,12,0.45) 45%, rgba(15,14,12,0.15) 75%, transparent 100%);
       padding:1.6rem 1.8rem;
     }
     .spa-card-title {

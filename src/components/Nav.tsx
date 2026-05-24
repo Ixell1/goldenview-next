@@ -17,7 +17,7 @@ const LINKS: NavLink[] = [
   { href: '/kontakt', sr: 'Kontakt', en: 'Contact' },
 ];
 
-export default function Nav({ active }: { active?: string } = {}) {
+export default function Nav({ active, onDarkHero }: { active?: string; onDarkHero?: boolean } = {}) {
   const { lang, setLang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -37,7 +37,7 @@ export default function Nav({ active }: { active?: string } = {}) {
 
   return (
     <>
-      <nav className={`nav ${scrolled ? 'scrolled' : ''}`} id="mainNav">
+      <nav className={`nav ${scrolled ? 'scrolled' : ''} ${onDarkHero ? 'nav-on-hero' : ''}`} id="mainNav">
         <Link href="/" className="nav-logo">
           <Image
             src="/logo-goldenview.png"

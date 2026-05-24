@@ -113,7 +113,7 @@ const FEATURES: Feature[] = [
 export default function WellnessPage() {
   return (
     <>
-      <Nav active="/wellness" />
+      <Nav active="/wellness" onDarkHero />
       <RevealOnScroll />
 
       {/* HERO */}

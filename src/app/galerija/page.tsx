@@ -98,7 +98,7 @@ export default function GalerijaPage() {
 
   return (
     <>
-      <Nav active="/galerija" />
+      <Nav active="/galerija" onDarkHero />
       <RevealOnScroll />
 
       {/* HERO */}
