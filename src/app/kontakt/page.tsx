@@ -107,7 +107,7 @@ export default function KontaktPage() {
               &nbsp;·&nbsp;
               <a href="mailto:info@goldenview.rs">info@goldenview.rs</a>
               &nbsp;·&nbsp;
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://www.instagram.com/goldenview.gastrostay/" target="_blank" rel="noopener noreferrer">Instagram</a>
               &nbsp;|&nbsp;
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
             </p>

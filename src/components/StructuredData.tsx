@@ -41,7 +41,7 @@ const LODGING = {
     bestRating: '10',
     reviewCount: '190',
   },
-  sameAs: ['https://instagram.com', 'https://facebook.com'],
+  sameAs: ['https://www.instagram.com/goldenview.gastrostay/'],
 };
 
 const RESTAURANT = {

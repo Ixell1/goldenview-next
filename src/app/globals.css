@@ -1008,9 +1008,8 @@
       .promo-img { height:220px; }
     }
 
-    /* ===================== BILINGUAL VISIBILITY ===================== */
-    [data-lang="sr"] [data-en]:not(input):not(textarea):not(select),
-    [data-lang="en"] [data-sr]:not(input):not(textarea):not(select) { display:none !important; }
+    /* Bilingual swap is handled in JS (LangProvider) by overwriting textContent.
+       No CSS visibility rule — both data-sr and data-en sit on the SAME element. */
 
     /* ===================== ACCESSIBILITY ===================== */
     :focus-visible {

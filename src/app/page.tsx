@@ -124,8 +124,8 @@ export default function Home() {
           </div>
           <div className="hero-image-wrap reveal-right">
             <Image
-              src="/spa-images/new/bazen-otvoreni.webp"
-              alt="Goldenview Bazen"
+              src="/Hero-goldenview.webp"
+              alt="Goldenview Sokobanja"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 55vw"
@@ -253,7 +253,7 @@ export default function Home() {
           </div>
           <div className="bento-grid">
             <div className="bento-card reveal">
-              <Image src="/apt-images/apartman-3.webp" alt="Apartmani Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image src="/apartmangrid.webp" alt="Apartmani Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               <div className="bento-overlay">
                 <div className="bento-pill" data-sr="APARTMANI" data-en="APARTMENTS">APARTMANI</div>
                 <div className="bento-title"><span data-sr="Prostor koji diše" data-en="Space to breathe">Prostor koji diše</span></div>
@@ -261,7 +261,7 @@ export default function Home() {
               </div>
             </div>
             <div className="bento-card reveal delay-2">
-              <Image src="/spa-images/new/bazen-otvoreni.webp" alt="Wellness Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image src="/spa-1-scaled.webp" alt="Wellness Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               <div className="bento-overlay">
                 <div className="bento-pill">WELLNESS &amp; SPA</div>
                 <div className="bento-title"><span data-sr="Privatna oaza opuštanja" data-en="Private relaxation oasis">Privatna oaza opuštanja</span></div>
@@ -269,7 +269,7 @@ export default function Home() {
               </div>
             </div>
             <div className="bento-card reveal delay-3">
-              <Image src="/rest-images/new/ambient-1.webp" alt="Restoran Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+              <Image src="/restoran-1-scaled.webp" alt="Restoran Goldenview" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               <div className="bento-overlay">
                 <div className="bento-pill" data-sr="RESTORAN" data-en="RESTAURANT">RESTORAN</div>
                 <div className="bento-title"><span data-sr="Ukusi koji se pamte" data-en="Flavours to remember">Ukusi koji se pamte</span></div>
