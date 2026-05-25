@@ -276,6 +276,25 @@
       min-height:0 !important;
       box-shadow:none !important;
     }
+    /* MCBE injects a real <button class="mcbe-booking-button"> inside our
+       overlay <div>. Force it to fill the whole overlay so every pixel of
+       our brand button forwards the click to the booking trigger. */
+    .mcbe-overlay-hidden .mcbe-booking-button,
+    .mcbe-overlay-hidden .mc-booking-engine {
+      position:absolute !important;
+      inset:0 !important;
+      width:100% !important;
+      height:100% !important;
+      padding:0 !important;
+      margin:0 !important;
+      border:none !important;
+      background:transparent !important;
+      color:transparent !important;
+      font-size:0 !important;
+      cursor:pointer !important;
+      border-radius:inherit !important;
+      box-shadow:none !important;
+    }
     /* Forward hover from wrapper to visible brand button */
     .mcbe-overlay-wrap:hover .btn-gold { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.35); }
     .mcbe-overlay-wrap:hover .btn-outline { background:var(--ink); color:#fff; transform:translateY(-2px); }

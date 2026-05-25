@@ -21,10 +21,29 @@ export default function MCBEBookButton({
   className = 'btn btn-gold',
   fullWidth = false,
 }: Props) {
+  // Safety net: if the user happens to click outside the inner MCBE
+  // button (e.g. clicked the padding area of our gold pill), forward
+  // the click to MCBE's injected <button>.
+  const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('.mcbe-booking-button, .mc-booking-engine')) return;
+    const inner = e.currentTarget.querySelector<HTMLButtonElement>(
+      '.mcbe-booking-button, .mc-booking-engine'
+    );
+    if (inner) {
+      e.preventDefault();
+      e.stopPropagation();
+      inner.click();
+    }
+  };
+
   return (
     <>
       <link rel="stylesheet" href={CSS_HREF} precedence="default" />
-      <span className={`mcbe-overlay-wrap${fullWidth ? ' mcbe-overlay-block' : ''}`}>
+      <span
+        className={`mcbe-overlay-wrap${fullWidth ? ' mcbe-overlay-block' : ''}`}
+        onClick={handleClick}
+      >
         <span className={`${className} mcbe-overlay-visible`}>{children}</span>
         <div className="mcbe-widget-button mcbe-overlay-hidden" data-token={TOKEN} />
       </span>
