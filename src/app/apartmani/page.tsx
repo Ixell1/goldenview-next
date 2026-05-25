@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
+import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import type { Metadata } from 'next';
 
@@ -78,6 +79,11 @@ export default function ApartmaniPage() {
           </p>
         </div>
       </section>
+
+      {/* BOOKING ENGINE — overlaps hero so visitors can check availability first */}
+      <div className="mc-widget-wrap reveal">
+        <MobileCalendarWidget />
+      </div>
 
       {/* APARTMENTS GRID */}
       <section className="section-pad">

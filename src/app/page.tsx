@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import AvailabilityChecker from '@/components/AvailabilityChecker';
+import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
 const APTS = [
@@ -222,8 +222,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <AvailabilityChecker />
       </section>
+
+      {/* MOBILE CALENDAR BOOKING ENGINE — overlaps hero like the old availability bar */}
+      <div className="mc-widget-wrap reveal">
+        <MobileCalendarWidget />
+      </div>
 
       {/* ============ MARQUEE ============ */}
       <div className="marquee-wrap">
