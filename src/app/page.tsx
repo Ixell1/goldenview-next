@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import MobileCalendarWidget from '@/components/MobileCalendarWidget';
+import MCBEBookButton from '@/components/MCBEBookButton';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
 const APTS = [
@@ -185,9 +186,9 @@ export default function Home() {
               </span>
             </p>
             <div className="hero-btns reveal delay-3">
-              <a href="tel:063604808" className="btn btn-gold">
+              <MCBEBookButton>
                 <span data-sr="Proveri dostupnost" data-en="Check availability">Proveri dostupnost</span>
-              </a>
+              </MCBEBookButton>
               <Link href="/apartmani" className="btn btn-outline">
                 <span data-sr="Pogledaj apartmane" data-en="View apartments">Pogledaj apartmane</span>
               </Link>
@@ -294,7 +295,7 @@ export default function Home() {
                   </div>
                   <div className="promo-btns">
                     <Link href="/apartmani" className="btn btn-outline-green"><span data-sr="Saznaj više" data-en="Learn more">Saznaj više</span></Link>
-                    <a href="tel:063604808" className="btn btn-dark-green"><span data-sr="Rezerviši odmah" data-en="Book now">Rezerviši odmah</span></a>
+                    <MCBEBookButton className="btn btn-dark-green"><span data-sr="Rezerviši odmah" data-en="Book now">Rezerviši odmah</span></MCBEBookButton>
                   </div>
                 </div>
               </div>
@@ -447,7 +448,7 @@ export default function Home() {
                       <span className="price-from"><span data-sr="Cena po noći" data-en="Price per night">Cena po noći</span></span>
                       <span className="price-amount">kontakt</span>
                     </div>
-                    <a href="tel:063604808" className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></a>
+                    <MCBEBookButton className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></MCBEBookButton>
                   </div>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
 import MobileCalendarWidget from '@/components/MobileCalendarWidget';
+import MCBEBookButton from '@/components/MCBEBookButton';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import type { Metadata } from 'next';
 
@@ -120,7 +121,7 @@ export default function ApartmaniPage() {
                       <span className="price-from"><span data-sr="Cena po noći" data-en="Price per night">Cena po noći</span></span>
                       <span className="price-amount">kontakt</span>
                     </div>
-                    <a href="tel:063604808" className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></a>
+                    <MCBEBookButton className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></MCBEBookButton>
                   </div>
                 </div>
               </div>
