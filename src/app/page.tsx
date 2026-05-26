@@ -9,8 +9,21 @@ import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import MCBEBookButton from '@/components/MCBEBookButton';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
+type HomeApt = {
+  id: string;
+  name_sr: string; name_en: string;
+  img: string;
+  size: string;
+  cap_sr: string; cap_en: string;
+  featured?: boolean;
+  featuredLabel_sr?: string;
+  featuredLabel_en?: string;
+  extra_sr?: string;
+  extra_en?: string;
+};
+
 // Guest capacities reflect Mobile-Calendar room data (source of truth).
-const APTS = [
+const APTS: HomeApt[] = [
   { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
