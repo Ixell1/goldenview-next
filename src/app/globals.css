@@ -1586,18 +1586,36 @@
       letter-spacing:0.02em;
     }
 
-    /* ===================== APARTMANI STANDALONE PAGE ===================== */
+    /* ===================== APARTMANI STANDALONE PAGE =====================
+       Cards on /apartmani are sized to the natural width of a 9:16 video
+       column (~320px). Three centered columns on wide screens, two on
+       tablet, one on phone. */
     .apt-grid {
-      display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 320px));
+      justify-content:center;
+      gap:1.75rem;
       margin-top:3rem;
     }
     .apt-grid .apt-card { flex:none; }
+    .apt-grid .apt-body {
+      padding:1.25rem 1.25rem 1.5rem;
+      display:flex; flex-direction:column; gap:0.6rem;
+    }
+    .apt-grid .apt-body h3 { margin-bottom:0; }
+    .apt-grid .apt-body .apt-meta { margin-bottom:0; }
+    .apt-cta-full { margin-top:0.7rem; width:100%; }
+    .apt-cta-full .mcbe-overlay-visible.btn {
+      width:100% !important;
+      padding:0.85rem 1.2rem;
+      font-size:0.92rem;
+      letter-spacing:0.02em;
+    }
 
     /* 9:16 vertical video teaser per apt card on /apartmani */
     .apt-grid .apt-img.apt-img-video {
       height:auto;
       aspect-ratio:9/16;
-      max-height:560px;
     }
     .apt-video-box {
       position:absolute; inset:0;
@@ -1658,11 +1676,11 @@
     .amenity-card p { font-size:0.83rem; color:var(--muted); line-height:1.5; }
 
     @media (max-width:1024px) {
-      .apt-grid { grid-template-columns:repeat(2, 1fr); }
+      .apt-grid { grid-template-columns:repeat(2, minmax(0, 320px)); }
       .amenities-grid { grid-template-columns:repeat(3, 1fr); }
     }
     @media (max-width:768px) {
-      .apt-grid { grid-template-columns:1fr; max-width:440px; margin-left:auto; margin-right:auto; }
+      .apt-grid { grid-template-columns:minmax(0, 320px); max-width:320px; margin-left:auto; margin-right:auto; }
       .amenities-grid { grid-template-columns:repeat(2, 1fr); }
       .amenities-section { margin:0 0.75rem; padding:3rem 1.25rem; }
     }

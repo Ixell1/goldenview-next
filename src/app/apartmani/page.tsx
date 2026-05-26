@@ -64,7 +64,7 @@ const AMENITIES = [
   { icon: 'tv', sr: 'Smart TV', en: 'Smart TV', descSr: 'Sa streaming servisima', descEn: 'With streaming services' },
   { icon: 'utensils', sr: 'Kuhinja', en: 'Kitchen', descSr: 'Potpuno opremljena', descEn: 'Fully equipped' },
   { icon: 'home', sr: 'Terasa', en: 'Terrace', descSr: 'Privatna terasa sa pogledom', descEn: 'Private terrace with a view' },
-  { icon: 'pool', sr: 'Bazen', en: 'Pool', descSr: 'Pristup bazenu za sve goste', descEn: 'Pool access for all guests' },
+  { icon: 'pool', sr: 'Otvoreni bazen i Spa centar', en: 'Outdoor pool & Spa', descSr: 'Pristup svim gostima', descEn: 'Access for all guests' },
   { icon: 'parking', sr: 'Parking', en: 'Parking', descSr: 'Besplatan parking', descEn: 'Free parking' },
   { icon: 'bed', sr: 'Posteljina', en: 'Bedding', descSr: 'Sve posteljine uključene', descEn: 'All linens included' },
 ];
@@ -127,7 +127,7 @@ export default function ApartmaniPage() {
                   {a.video ? (
                     <AptVideoBox src={a.video} poster={a.img} alt={`${a.id} ${a.name_sr}`} />
                   ) : (
-                    <Image src={a.img} alt={`${a.id} ${a.name_sr}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                    <Image src={a.img} alt={`${a.id} ${a.name_sr}`} fill sizes="320px" style={{ objectFit: 'cover' }} />
                   )}
                   <span className="apt-badge">
                     <span data-sr={a.badge_sr ?? `${a.id} ${a.name_sr}`} data-en={a.badge_en ?? `${a.id} ${a.name_en}`}>
@@ -152,20 +152,9 @@ export default function ApartmaniPage() {
                       </span>
                     </div>
                   )}
-                  <div className="apt-pills">
-                    <span className="apt-pill">WiFi</span>
-                    <span className="apt-pill"><span data-sr="Klima" data-en="A/C">Klima</span></span>
-                    <span className="apt-pill">Smart TV</span>
-                    <span className="apt-pill"><span data-sr="Kuhinja" data-en="Kitchen">Kuhinja</span></span>
-                    <span className="apt-pill"><span data-sr="Terasa" data-en="Terrace">Terasa</span></span>
-                  </div>
-                  <div className="apt-footer">
-                    <div className="apt-price-wrap">
-                      <span className="price-from"><span data-sr="Cena po noći" data-en="Price per night">Cena po noći</span></span>
-                      <span className="price-amount">kontakt</span>
-                    </div>
-                    <MCBEBookButton className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></MCBEBookButton>
-                  </div>
+                  <MCBEBookButton className="btn btn-gold apt-cta-full" fullWidth>
+                    <span data-sr="Rezervacije i cenovnik" data-en="Reservations & pricing">Rezervacije i cenovnik</span>
+                  </MCBEBookButton>
                 </div>
               </div>
             ))}
