@@ -31,8 +31,7 @@ type Apt = {
 };
 
 const APTS: Apt[] = [
-  // A1 uses A2 video temporarily until user shoots a dedicated A1 clip
-  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', video: '/apt-videos/a1.mp4', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
   { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
   { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/b3.mp4', size: '51', cap_sr: 'do 5 gostiju', cap_en: 'up to 5 guests' },
