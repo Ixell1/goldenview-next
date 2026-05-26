@@ -1557,6 +1557,47 @@
     }
     .apt-grid .apt-card { flex:none; }
 
+    /* 9:16 vertical video teaser per apt card on /apartmani */
+    .apt-grid .apt-img.apt-img-video {
+      height:auto;
+      aspect-ratio:9/16;
+      max-height:560px;
+    }
+    .apt-video-box {
+      position:absolute; inset:0;
+      background:#0F0E0C; cursor:pointer;
+      overflow:hidden;
+    }
+    .apt-video-box video {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .apt-video-play {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      width:64px; height:64px; border-radius:50%;
+      background:rgba(255,255,255,0.94); color:var(--gold);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; border:none;
+      box-shadow:0 10px 32px rgba(0,0,0,0.35);
+      transition:opacity 0.3s, transform 0.3s;
+      z-index:3;
+    }
+    .apt-video-play:hover { transform:translate(-50%,-50%) scale(1.08); }
+    .apt-video-play svg { margin-left:4px; }
+    .apt-video-play.is-hidden { opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(0.7); }
+    .apt-video-shimmer {
+      position:absolute; inset:0; z-index:2;
+      background:linear-gradient(110deg, #1a1815 8%, #2a2825 18%, #1a1815 33%);
+      background-size:200% 100%;
+      animation:aptShimmer 1.4s linear infinite;
+    }
+    @keyframes aptShimmer {
+      0% { background-position:-200% 0; }
+      100% { background-position:200% 0; }
+    }
+    /* Keep badge above the video */
+    .apt-grid .apt-img-video .apt-badge { z-index:4; }
+
     .amenities-section {
       background:var(--surface); border-radius:2rem;
       margin:0 1.5rem; padding:4rem 2rem;

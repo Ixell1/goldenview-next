@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
 import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import MCBEBookButton from '@/components/MCBEBookButton';
+import AptVideoBox from '@/components/AptVideoBox';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import type { Metadata } from 'next';
 
@@ -18,18 +19,29 @@ export const metadata: Metadata = {
   },
 };
 
-const APTS = [
+type Apt = {
+  id: string;
+  name_sr: string; name_en: string;
+  img: string;
+  video?: string;
+  size: string;
+  cap_sr: string; cap_en: string;
+  badge_sr?: string;
+  badge_en?: string;
+};
+
+const APTS: Apt[] = [
   { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', size: '51', cap_sr: 'do 5 gostiju', cap_en: 'up to 5 guests' },
-  { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apt-7.webp', size: '49', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C3', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-10.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C4', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-11.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/b3.mp4', size: '51', cap_sr: 'do 5 gostiju', cap_en: 'up to 5 guests' },
+  { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', video: '/apt-videos/b4.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', video: '/apt-videos/b5.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apt-7.webp', video: '/apt-videos/b6.mp4', size: '49', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', video: '/apt-videos/b7.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', video: '/apt-videos/c2.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C3', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-10.webp', video: '/apt-videos/c3.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C4', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-11.webp', video: '/apt-videos/c4.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'NEW', name_sr: 'Novi apartman', name_en: 'New apartment', img: '/apt-images/apt-12.webp', size: '—', cap_sr: 'uskoro', cap_en: 'coming soon', badge_sr: 'Uskoro', badge_en: 'Coming soon' },
 ];
 
@@ -98,8 +110,12 @@ export default function ApartmaniPage() {
           <div className="apt-grid">
             {APTS.map((a, i) => (
               <div key={a.id} className={`apt-card reveal ${i % 3 === 1 ? 'delay-1' : i % 3 === 2 ? 'delay-2' : ''}`}>
-                <div className="apt-img">
-                  <Image src={a.img} alt={`${a.id} ${a.name_sr}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                <div className={`apt-img${a.video ? ' apt-img-video' : ''}`}>
+                  {a.video ? (
+                    <AptVideoBox src={a.video} poster={a.img} alt={`${a.id} ${a.name_sr}`} />
+                  ) : (
+                    <Image src={a.img} alt={`${a.id} ${a.name_sr}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                  )}
                   <span className="apt-badge">
                     <span data-sr={a.badge_sr ?? `${a.id} ${a.name_sr}`} data-en={a.badge_en ?? `${a.id} ${a.name_en}`}>
                       {a.badge_sr ?? `${a.id} ${a.name_sr}`}
