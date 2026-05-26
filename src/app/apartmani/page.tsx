@@ -28,16 +28,29 @@ type Apt = {
   cap_sr: string; cap_en: string;
   badge_sr?: string;
   badge_en?: string;
+  featured?: boolean;
+  featuredLabel_sr?: string;
+  featuredLabel_en?: string;
+  extra_sr?: string;
+  extra_en?: string;
 };
 
+// Guest capacities reflect Mobile-Calendar room data (source of truth).
 const APTS: Apt[] = [
-  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', video: '/apt-videos/a1.mp4', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/b3.mp4', size: '51', cap_sr: 'do 5 gostiju', cap_en: 'up to 5 guests' },
+  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', video: '/apt-videos/a1.mp4', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
+  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/b3.mp4', size: '51', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
   { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', video: '/apt-videos/b4.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', video: '/apt-videos/b5.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apt-7.webp', video: '/apt-videos/b6.mp4', size: '49', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  {
+    id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom',
+    img: '/apt-images/apt-7.webp', video: '/apt-videos/b6.mp4',
+    size: '49', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests',
+    featured: true,
+    featuredLabel_sr: 'Najtraženiji', featuredLabel_en: 'Most popular',
+    extra_sr: 'Terasa 70m²', extra_en: 'Terrace 70m²',
+  },
   { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', video: '/apt-videos/b7.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'C1', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/c1.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', video: '/apt-videos/c2.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
@@ -109,7 +122,7 @@ export default function ApartmaniPage() {
           </div>
           <div className="apt-grid">
             {APTS.map((a, i) => (
-              <div key={a.id} className={`apt-card reveal ${i % 3 === 1 ? 'delay-1' : i % 3 === 2 ? 'delay-2' : ''}`}>
+              <div key={a.id} className={`apt-card reveal${a.featured ? ' apt-card-featured' : ''} ${i % 3 === 1 ? 'delay-1' : i % 3 === 2 ? 'delay-2' : ''}`}>
                 <div className={`apt-img${a.video ? ' apt-img-video' : ''}`}>
                   {a.video ? (
                     <AptVideoBox src={a.video} poster={a.img} alt={`${a.id} ${a.name_sr}`} />
@@ -121,10 +134,24 @@ export default function ApartmaniPage() {
                       {a.badge_sr ?? `${a.id} ${a.name_sr}`}
                     </span>
                   </span>
+                  {a.featured && a.featuredLabel_sr && (
+                    <span className="apt-featured-badge">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2l2.5 6.5L21 9l-5 4 1.5 7L12 16l-5.5 4L8 13l-5-4 6.5-.5z"/></svg>
+                      <span data-sr={a.featuredLabel_sr} data-en={a.featuredLabel_en ?? a.featuredLabel_sr}>{a.featuredLabel_sr}</span>
+                    </span>
+                  )}
                 </div>
                 <div className="apt-body">
                   <h3><span className="cursive">{a.id}</span> <span data-sr={a.name_sr} data-en={a.name_en}>{a.name_sr}</span></h3>
                   <p className="apt-meta">{a.size} m² · <span data-sr={a.cap_sr} data-en={a.cap_en}>{a.cap_sr}</span></p>
+                  {a.extra_sr && (
+                    <div className="apt-extra-row">
+                      <span className="apt-extra">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                        <span data-sr={a.extra_sr} data-en={a.extra_en ?? a.extra_sr}>{a.extra_sr}</span>
+                      </span>
+                    </div>
+                  )}
                   <div className="apt-pills">
                     <span className="apt-pill">WiFi</span>
                     <span className="apt-pill"><span data-sr="Klima" data-en="A/C">Klima</span></span>

@@ -1550,6 +1550,42 @@
     @media (max-width:1024px) { .gallery-masonry { column-count:2; } }
     @media (max-width:640px)  { .gallery-masonry { column-count:1; } }
 
+    /* ===================== FEATURED APT CARD ===================== */
+    .apt-card.apt-card-featured {
+      border:2px solid var(--gold);
+      box-shadow:0 0 0 1px var(--gold-15), 0 12px 36px rgba(201,168,76,0.18);
+    }
+    .apt-card.apt-card-featured:hover {
+      box-shadow:0 0 0 1px var(--gold-15), 0 22px 56px rgba(201,168,76,0.25);
+    }
+    .apt-featured-badge {
+      position:absolute;
+      top:0.85rem; right:0.85rem;
+      background:linear-gradient(135deg, #C9A84C 0%, #E8C87A 100%);
+      color:#1a1815;
+      font-size:0.66rem; font-weight:800;
+      letter-spacing:0.08em; text-transform:uppercase;
+      padding:0.38rem 0.85rem;
+      border-radius:var(--r-pill);
+      display:inline-flex; align-items:center; gap:0.35rem;
+      z-index:4;
+      box-shadow:0 4px 16px rgba(201,168,76,0.45);
+      white-space:nowrap;
+    }
+    .apt-extra-row {
+      margin-top:0.4rem; margin-bottom:0.5rem;
+    }
+    .apt-extra {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      background:var(--gold-10);
+      color:var(--gold);
+      border:1px solid rgba(201,168,76,0.25);
+      padding:0.32rem 0.75rem;
+      border-radius:var(--r-pill);
+      font-size:0.74rem; font-weight:700;
+      letter-spacing:0.02em;
+    }
+
     /* ===================== APARTMANI STANDALONE PAGE ===================== */
     .apt-grid {
       display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;

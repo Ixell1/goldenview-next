@@ -9,15 +9,24 @@ import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import MCBEBookButton from '@/components/MCBEBookButton';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
+// Guest capacities reflect Mobile-Calendar room data (source of truth).
 const APTS = [
-  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', size: '42', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', size: '51', cap_sr: 'do 5 gostiju', cap_en: 'up to 5 guests' },
+  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
+  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', size: '51', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
   { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apt-7.webp', size: '49', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  {
+    id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom',
+    img: '/apt-images/apt-7.webp', size: '49',
+    cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests',
+    featured: true,
+    featuredLabel_sr: 'Najtraženiji', featuredLabel_en: 'Most popular',
+    extra_sr: 'Terasa 70m²', extra_en: 'Terrace 70m²',
+  },
   { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C1', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-3.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'C3', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-10.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'C4', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-11.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
@@ -428,14 +437,28 @@ export default function Home() {
         <div className="apt-slider-wrap container">
           <div className="apt-slider-track" ref={aptTrackRef}>
             {APTS.map((apt) => (
-              <div key={apt.id} className="apt-card">
+              <div key={apt.id} className={`apt-card${apt.featured ? ' apt-card-featured' : ''}`}>
                 <div className="apt-img">
                   <Image src={apt.img} alt={`${apt.id} ${apt.name_sr}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
                   <span className="apt-badge">{apt.id} {apt.name_sr}</span>
+                  {apt.featured && apt.featuredLabel_sr && (
+                    <span className="apt-featured-badge">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2l2.5 6.5L21 9l-5 4 1.5 7L12 16l-5.5 4L8 13l-5-4 6.5-.5z"/></svg>
+                      <span data-sr={apt.featuredLabel_sr} data-en={apt.featuredLabel_en ?? apt.featuredLabel_sr}>{apt.featuredLabel_sr}</span>
+                    </span>
+                  )}
                 </div>
                 <div className="apt-body">
                   <h3><span className="cursive">{apt.id}</span> <span data-sr={apt.name_sr} data-en={apt.name_en}>{apt.name_sr}</span></h3>
                   <p className="apt-meta">{apt.size} m² · <span data-sr={apt.cap_sr} data-en={apt.cap_en}>{apt.cap_sr}</span></p>
+                  {apt.extra_sr && (
+                    <div className="apt-extra-row">
+                      <span className="apt-extra">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                        <span data-sr={apt.extra_sr} data-en={apt.extra_en ?? apt.extra_sr}>{apt.extra_sr}</span>
+                      </span>
+                    </div>
+                  )}
                   <div className="apt-pills">
                     <span className="apt-pill">WiFi</span>
                     <span className="apt-pill"><span data-sr="Klima" data-en="A/C">Klima</span></span>
