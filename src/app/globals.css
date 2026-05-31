@@ -548,6 +548,83 @@
     }
     .bento-link:hover { gap:0.75rem; }
 
+    /* ===================== BREAKFAST INCLUDED NOTE =====================
+       Subtle gold pill that sits under section subtitles to remind every
+       visitor that breakfast is part of the room rate. */
+    .breakfast-note {
+      display:inline-flex; align-items:center; gap:0.55rem;
+      max-width:640px; margin:1.2rem auto 0;
+      background:var(--gold-10);
+      border:1px solid rgba(201,168,76,0.28);
+      color:var(--ink);
+      padding:0.7rem 1.1rem;
+      border-radius:var(--r-pill);
+      font-size:0.82rem; font-weight:600;
+      line-height:1.35;
+      text-align:left;
+    }
+    .breakfast-note svg { color:var(--gold); flex-shrink:0; }
+    @media (max-width:640px) {
+      .breakfast-note { font-size:0.78rem; border-radius:var(--r-md); }
+    }
+
+    /* ===================== HOME APT SHOWCASE =====================
+       Desktop: single row of three featured cards centered.
+       Mobile (≤768px): a touch-scroll carousel of all 12 cards.
+       Cards mirror /apartmani exactly (no pills, single full-width CTA). */
+    .home-apt-grid {
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 320px));
+      justify-content:center;
+      gap:1.75rem;
+      margin-top:3rem;
+    }
+    .home-apt-grid .apt-img.apt-img-video {
+      height:auto; aspect-ratio:9/16;
+    }
+    .home-apt-grid .apt-body {
+      padding:1.25rem 1.25rem 1.5rem;
+      display:flex; flex-direction:column; gap:0.6rem;
+    }
+    .home-apt-grid .apt-body h3 { margin-bottom:0; }
+    .home-apt-grid .apt-body .apt-meta { margin-bottom:0; }
+
+    .home-apt-scroll {
+      display:none;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      margin-top:2.5rem;
+      padding:0.5rem 1rem 1.5rem;
+      scrollbar-width:none;
+    }
+    .home-apt-scroll::-webkit-scrollbar { display:none; }
+    .home-apt-scroll-track {
+      display:flex;
+      gap:1rem;
+      padding:0 0.5rem;
+    }
+    .home-apt-scroll-track .apt-card {
+      flex:0 0 78%;
+      max-width:300px;
+      scroll-snap-align:center;
+    }
+    .home-apt-scroll-track .apt-img.apt-img-video {
+      height:auto; aspect-ratio:9/16;
+    }
+    .home-apt-scroll-track .apt-body {
+      padding:1.1rem 1.1rem 1.3rem;
+      display:flex; flex-direction:column; gap:0.5rem;
+    }
+    .home-apt-scroll-track .apt-body h3 { margin-bottom:0; }
+    .home-apt-scroll-track .apt-body .apt-meta { margin-bottom:0; }
+
+    @media (max-width:768px) {
+      .home-apt-grid { display:none; }
+      .home-apt-scroll { display:block; }
+    }
+
     /* ===================== APARTMENTS ===================== */
     .apts-section { background:var(--surface); border-radius:2rem; margin:0 1.5rem; overflow:hidden; padding:4rem 2rem; }
     .apt-slider-wrap { position:relative; overflow:hidden; margin-top:2.5rem; }
@@ -824,7 +901,7 @@
     .cta-bg img { width:100%; height:100%; object-fit:cover; }
     .cta-bg::after {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(135deg, rgba(15,14,12,0.72) 0%, rgba(26,24,21,0.58) 100%);
+      background:linear-gradient(135deg, rgba(15,14,12,0.78) 0%, rgba(26,24,21,0.68) 100%);
     }
     .cta-content { position:relative; z-index:2; max-width:640px; margin:0 auto; }
     .cta-content .eyebrow { color:var(--gold-light); }

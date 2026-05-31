@@ -7,12 +7,14 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import MCBEBookButton from '@/components/MCBEBookButton';
+import AptVideoBox from '@/components/AptVideoBox';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
 type HomeApt = {
   id: string;
   name_sr: string; name_en: string;
   img: string;
+  video?: string;
   size: string;
   cap_sr: string; cap_en: string;
   featured?: boolean;
@@ -24,26 +26,33 @@ type HomeApt = {
 
 // Guest capacities reflect Mobile-Calendar room data (source of truth).
 const APTS: HomeApt[] = [
-  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
-  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', size: '51', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
-  { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', video: '/apt-videos/a1.mp4', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
+  { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/b3.mp4', size: '51', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
+  { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', video: '/apt-videos/b4.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', video: '/apt-videos/b5.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   {
     id: 'B6', name_sr: 'Dvosobni', name_en: 'Two-bedroom',
-    img: '/apt-images/apt-7.webp', size: '49',
+    img: '/apt-images/apt-7.webp', video: '/apt-videos/b6.mp4', size: '49',
     cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests',
     featured: true,
     featuredLabel_sr: 'Najtraženiji', featuredLabel_en: 'Most popular',
     extra_sr: 'Terasa 70m²', extra_en: 'Terrace 70m²',
   },
-  { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C1', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-3.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C3', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-10.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'C4', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-11.webp', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'B7', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', video: '/apt-videos/b7.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C1', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/c1.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-9.webp', video: '/apt-videos/c2.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C3', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-10.webp', video: '/apt-videos/c3.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
+  { id: 'C4', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-11.webp', video: '/apt-videos/c4.mp4', size: '35', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
 ];
+
+// Curated trio for the home showcase: the most popular (B6),
+// the largest (B3 - 51 m²), and a compact studio (B4 - 32 m²).
+const FEATURED_IDS = ['B6', 'B3', 'B4'];
+const FEATURED_APTS = FEATURED_IDS
+  .map((id) => APTS.find((a) => a.id === id))
+  .filter((a): a is HomeApt => Boolean(a));
 
 const TESTIMONIALS = [
   {
@@ -108,13 +117,25 @@ const GALLERY = [
   '/spa-images/new/sauna.webp',
 ];
 
-const PROMO_PACKAGES = [
+type Promo = {
+  img: string;
+  period_sr: string; period_en: string;
+  title_sr: string; title_en: string;
+  cursive_sr?: string; cursive_en?: string;
+  desc_sr: string; desc_en: string;
+  tags?: string[];
+  tagsEn?: string[];
+};
+
+const PROMO_PACKAGES: Promo[] = [
   {
     img: '/apt-images/apartman-1.webp',
     period_sr: '10 - 14. april 2026.', period_en: 'April 10 - 14, 2026',
     title_sr: 'Uskrs u', title_en: 'Easter at',
     desc_sr: 'Izaberite idealnu destinaciju za odmor tokom Uskrsa. Paket važi za 3 noći u periodu 10-14. april.',
     desc_en: 'Choose the ideal destination for your Easter holiday. Package valid for 3 nights, April 10-14.',
+    tags: ['3 noćenja', 'Doručak', 'Bazen'],
+    tagsEn: ['3 nights', 'Breakfast', 'Pool'],
   },
   {
     img: '/apt-images/apartman-3.webp',
@@ -122,37 +143,30 @@ const PROMO_PACKAGES = [
     title_sr: 'Prvi maj u', title_en: 'May Day at',
     desc_sr: 'Izaberite idealnu destinaciju za odmor tokom Prvomajskih praznika i provedite kvalitetno vreme sa dragim osobama. Paket važi za 3 noći u periodu 30.04-03.05.2026.',
     desc_en: 'Choose the ideal destination for your May Day holiday and spend quality time with loved ones. Package valid for 3 nights, Apr 30 - May 03, 2026.',
+    tags: ['3 noćenja', 'Doručak', 'Bazen'],
+    tagsEn: ['3 nights', 'Breakfast', 'Pool'],
   },
   {
-    img: '/spa-1-scaled.webp',
-    period_sr: 'Radnim danima · 2 osobe', period_en: 'Weekdays · 2 persons',
-    title_sr: 'Produži i', title_en: 'Stay longer &',
-    cursive_sr: 'uštedi', cursive_en: 'save',
-    desc_sr: 'Pravo je vreme za kratak predah tokom radnih dana u okviru našeg promo paketa. Cena se odnosi na 3 noćenja radnim danima za 2 osobe.',
-    desc_en: 'The perfect time for a short break during weekdays with our promo package. Price is for 3 nights on weekdays for 2 persons.',
+    img: '/spa-images/new/lezaljke.webp',
+    period_sr: '2 noći · za dvoje', period_en: '2 nights · for two',
+    title_sr: 'Spa vikend za', title_en: 'Spa weekend for',
+    cursive_sr: 'dvoje', cursive_en: 'two',
+    desc_sr: 'Vikend osmišljen za potpuno opuštanje — 2 noćenja sa doručkom, profesionalna masaža i neograničeno korišćenje spa centra (bazeni, sauna, đakuzi, kaldarijum).',
+    desc_en: 'A weekend built for total relaxation — 2 nights with breakfast, a professional massage and unlimited spa access (pools, sauna, jacuzzi, caldarium).',
+    tags: ['2 noći', 'Doručak', 'Masaža', 'SPA centar'],
+    tagsEn: ['2 nights', 'Breakfast', 'Massage', 'SPA access'],
   },
 ];
 
 export default function Home() {
-  const aptTrackRef = useRef<HTMLDivElement>(null);
   const testiTrackRef = useRef<HTMLDivElement>(null);
   const galleryTrackRef = useRef<HTMLDivElement>(null);
-  const [aptIdx, setAptIdx] = useState(0);
   const [testiIdx, setTestiIdx] = useState(0);
   const [galIdx, setGalIdx] = useState(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  const aptVis = () => (typeof window === 'undefined' ? 3 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
   const testiVis = () => (typeof window === 'undefined' ? 2 : window.innerWidth < 768 ? 1 : 2);
   const galVis = () => (typeof window === 'undefined' ? 3 : window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
-
-  const goApt = (i: number) => {
-    const v = aptVis();
-    const max = Math.max(0, APTS.length - v);
-    const n = Math.min(Math.max(0, i), max);
-    setAptIdx(n);
-    if (aptTrackRef.current) aptTrackRef.current.style.transform = `translateX(${-n * (100 / v)}%)`;
-  };
 
   const goTesti = (i: number) => {
     const v = testiVis();
@@ -302,18 +316,12 @@ export default function Home() {
                   <p className="promo-desc"><span data-sr={p.desc_sr} data-en={p.desc_en}>{p.desc_sr}</span></p>
                   <div className="promo-divider"></div>
                   <div className="promo-includes">
-                    <span className="promo-include-tag">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span data-sr="3 noćenja" data-en="3 nights">3 noćenja</span>
-                    </span>
-                    <span className="promo-include-tag">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span data-sr="Bazen" data-en="Pool">Bazen</span>
-                    </span>
-                    <span className="promo-include-tag">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span data-sr="Parking" data-en="Parking">Parking</span>
-                    </span>
+                    {(p.tags ?? ['3 noćenja', 'Doručak', 'Bazen']).map((t, ti) => (
+                      <span key={ti} className="promo-include-tag">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span data-sr={t} data-en={p.tagsEn?.[ti] ?? t}>{t}</span>
+                      </span>
+                    ))}
                   </div>
                   <div className="promo-btns">
                     <Link href="/apartmani" className="btn btn-outline-green"><span data-sr="Saznaj više" data-en="Learn more">Saznaj više</span></Link>
@@ -435,7 +443,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ APARTMENTS SLIDER ============ */}
+      {/* ============ APARTMENTS SHOWCASE ============ */}
       <section id="apartmani" className="apts-section">
         <div className="section-header reveal">
           <span className="eyebrow"><span data-sr="Smeštaj" data-en="Accommodation">Smeštaj</span></span>
@@ -446,61 +454,96 @@ export default function Home() {
               Dvanaest apartmana — od kompaktnog studija do porodičnog duplex-a. Svi sa kuhinjom, klimom, smart TV-om i pristupom bazenu.
             </span>
           </p>
+          <div className="breakfast-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+            </svg>
+            <span data-sr="Sve cene noćenja uključuju doručak. À la carte restoran je dostupan svim gostima tokom radnog vremena."
+                  data-en="All night rates include breakfast. À la carte restaurant available to all guests during opening hours.">
+              Sve cene noćenja uključuju doručak. À la carte restoran je dostupan svim gostima tokom radnog vremena.
+            </span>
+          </div>
         </div>
-        <div className="apt-slider-wrap container">
-          <div className="apt-slider-track" ref={aptTrackRef}>
-            {APTS.map((apt) => (
-              <div key={apt.id} className={`apt-card${apt.featured ? ' apt-card-featured' : ''}`}>
-                <div className="apt-img">
-                  <Image src={apt.img} alt={`${apt.id} ${apt.name_sr}`} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
-                  <span className="apt-badge">{apt.id} {apt.name_sr}</span>
-                  {apt.featured && apt.featuredLabel_sr && (
+
+        {/* Desktop: 3 featured cards in a single row */}
+        <div className="home-apt-grid container">
+          {FEATURED_APTS.map((a, i) => (
+            <div key={a.id} className={`apt-card reveal${a.featured ? ' apt-card-featured' : ''} ${i === 1 ? 'delay-1' : i === 2 ? 'delay-2' : ''}`}>
+              <div className={`apt-img${a.video ? ' apt-img-video' : ''}`}>
+                {a.video ? (
+                  <AptVideoBox src={a.video} poster={a.img} alt={`${a.id} ${a.name_sr}`} />
+                ) : (
+                  <Image src={a.img} alt={`${a.id} ${a.name_sr}`} fill sizes="320px" style={{ objectFit: 'cover' }} />
+                )}
+                <span className="apt-badge">{a.id} {a.name_sr}</span>
+                {a.featured && a.featuredLabel_sr && (
+                  <span className="apt-featured-badge">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2l2.5 6.5L21 9l-5 4 1.5 7L12 16l-5.5 4L8 13l-5-4 6.5-.5z"/></svg>
+                    <span data-sr={a.featuredLabel_sr} data-en={a.featuredLabel_en ?? a.featuredLabel_sr}>{a.featuredLabel_sr}</span>
+                  </span>
+                )}
+              </div>
+              <div className="apt-body">
+                <h3><span className="cursive">{a.id}</span> <span data-sr={a.name_sr} data-en={a.name_en}>{a.name_sr}</span></h3>
+                <p className="apt-meta">{a.size} m² · <span data-sr={a.cap_sr} data-en={a.cap_en}>{a.cap_sr}</span></p>
+                {a.extra_sr && (
+                  <div className="apt-extra-row">
+                    <span className="apt-extra">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                      <span data-sr={a.extra_sr} data-en={a.extra_en ?? a.extra_sr}>{a.extra_sr}</span>
+                    </span>
+                  </div>
+                )}
+                <MCBEBookButton className="btn btn-gold apt-cta-full" fullWidth>
+                  <span data-sr="Rezervacije i cenovnik" data-en="Reservations & pricing">Rezervacije i cenovnik</span>
+                </MCBEBookButton>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile: horizontal scroll carousel of all 12 apartments
+            (lazy-loaded via AptVideoBox IntersectionObserver) */}
+        <div className="home-apt-scroll">
+          <div className="home-apt-scroll-track">
+            {APTS.map((a) => (
+              <div key={a.id} className={`apt-card${a.featured ? ' apt-card-featured' : ''}`}>
+                <div className={`apt-img${a.video ? ' apt-img-video' : ''}`}>
+                  {a.video ? (
+                    <AptVideoBox src={a.video} poster={a.img} alt={`${a.id} ${a.name_sr}`} />
+                  ) : (
+                    <Image src={a.img} alt={`${a.id} ${a.name_sr}`} fill sizes="280px" style={{ objectFit: 'cover' }} />
+                  )}
+                  <span className="apt-badge">{a.id} {a.name_sr}</span>
+                  {a.featured && a.featuredLabel_sr && (
                     <span className="apt-featured-badge">
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2l2.5 6.5L21 9l-5 4 1.5 7L12 16l-5.5 4L8 13l-5-4 6.5-.5z"/></svg>
-                      <span data-sr={apt.featuredLabel_sr} data-en={apt.featuredLabel_en ?? apt.featuredLabel_sr}>{apt.featuredLabel_sr}</span>
+                      <span data-sr={a.featuredLabel_sr} data-en={a.featuredLabel_en ?? a.featuredLabel_sr}>{a.featuredLabel_sr}</span>
                     </span>
                   )}
                 </div>
                 <div className="apt-body">
-                  <h3><span className="cursive">{apt.id}</span> <span data-sr={apt.name_sr} data-en={apt.name_en}>{apt.name_sr}</span></h3>
-                  <p className="apt-meta">{apt.size} m² · <span data-sr={apt.cap_sr} data-en={apt.cap_en}>{apt.cap_sr}</span></p>
-                  {apt.extra_sr && (
+                  <h3><span className="cursive">{a.id}</span> <span data-sr={a.name_sr} data-en={a.name_en}>{a.name_sr}</span></h3>
+                  <p className="apt-meta">{a.size} m² · <span data-sr={a.cap_sr} data-en={a.cap_en}>{a.cap_sr}</span></p>
+                  {a.extra_sr && (
                     <div className="apt-extra-row">
                       <span className="apt-extra">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-                        <span data-sr={apt.extra_sr} data-en={apt.extra_en ?? apt.extra_sr}>{apt.extra_sr}</span>
+                        <span data-sr={a.extra_sr} data-en={a.extra_en ?? a.extra_sr}>{a.extra_sr}</span>
                       </span>
                     </div>
                   )}
-                  <div className="apt-pills">
-                    <span className="apt-pill">WiFi</span>
-                    <span className="apt-pill"><span data-sr="Klima" data-en="A/C">Klima</span></span>
-                    <span className="apt-pill">Smart TV</span>
-                    <span className="apt-pill"><span data-sr="Kuhinja" data-en="Kitchen">Kuhinja</span></span>
-                    <span className="apt-pill"><span data-sr="Terasa" data-en="Terrace">Terasa</span></span>
-                  </div>
-                  <div className="apt-footer">
-                    <div className="apt-price-wrap">
-                      <span className="price-from"><span data-sr="Cena po noći" data-en="Price per night">Cena po noći</span></span>
-                      <span className="price-amount">kontakt</span>
-                    </div>
-                    <MCBEBookButton className="btn btn-gold apt-cta"><span data-sr="Rezerviši" data-en="Book">Rezerviši</span></MCBEBookButton>
-                  </div>
+                  <MCBEBookButton className="btn btn-gold apt-cta-full" fullWidth>
+                    <span data-sr="Rezervacije i cenovnik" data-en="Reservations & pricing">Rezervacije i cenovnik</span>
+                  </MCBEBookButton>
                 </div>
               </div>
             ))}
           </div>
-          <div className="apt-slider-nav">
-            <button className="apt-slider-btn" onClick={() => goApt(aptIdx - 1)} aria-label="Prev">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button className="apt-slider-btn" onClick={() => goApt(aptIdx + 1)} aria-label="Next">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
         </div>
+
         <div className="apt-detail-btn">
-          <Link href="/apartmani" className="btn btn-gold"><span data-sr="Pogledaj detaljno" data-en="View details">Pogledaj detaljno</span></Link>
+          <Link href="/apartmani" className="btn btn-gold"><span data-sr="Pogledaj sve apartmane" data-en="View all apartments">Pogledaj sve apartmane</span></Link>
         </div>
       </section>
 
@@ -605,10 +648,10 @@ export default function Home() {
             <div className="rest-gallery reveal-left">
               <div className="rest-hero-row">
                 <div className="rest-hero-img">
-                  <Image src="/restoran-1-scaled.webp" alt="Restoran Goldenview" fill sizes="(max-width: 1024px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                  <Image src="/rest-images/new/lounge-3.webp" alt="Lounge prostor" fill sizes="(max-width: 1024px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
                 </div>
                 <div className="rest-hero-img">
-                  <Image src="/rest-images/new/ambient-1.webp" alt="Restoran enterijer" fill sizes="(max-width: 1024px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
+                  <Image src="/rest-images/new/food-steak.webp" alt="Steak iz naše kuhinje" fill sizes="(max-width: 1024px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
                 </div>
               </div>
             </div>
@@ -630,9 +673,14 @@ export default function Home() {
                 <span className="rest-tag"><span data-sr="Vrhunski roštilj" data-en="Premium grill">Vrhunski roštilj</span></span>
                 <span className="rest-tag"><span data-sr="Sezonski meni" data-en="Seasonal menu">Sezonski meni</span></span>
               </div>
-              <a href="/rest-images/new/jelovnik.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-gold">
-                <span data-sr="Pogledaj jelovnik" data-en="View menu">Pogledaj jelovnik</span>
-              </a>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <a href="/rest-images/new/jelovnik.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-gold">
+                  <span data-sr="Pogledaj jelovnik" data-en="View menu">Pogledaj jelovnik</span>
+                </a>
+                <Link href="/restoran" className="btn btn-outline">
+                  <span data-sr="Saznaj više o restoranu" data-en="More about the restaurant">Saznaj više o restoranu</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -769,7 +817,7 @@ export default function Home() {
       {/* ============ CTA ============ */}
       <section className="cta-section">
         <div className="cta-bg">
-          <Image src="/spa-1-scaled.webp" alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} />
+          <Image src="/rest-images/new/lounge-1.webp" alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} />
         </div>
         <div className="cta-content">
           <span className="eyebrow"><span data-sr="Spreman za odmor?" data-en="Ready to unwind?">Spreman za odmor?</span></span>

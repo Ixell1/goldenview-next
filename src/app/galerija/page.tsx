@@ -9,12 +9,13 @@ import RevealOnScroll from '@/components/RevealOnScroll';
 
 type Cat = 'all' | 'apartmani' | 'restoran' | 'wellness';
 
+// Deduped: apartman-5.webp was an exact byte-for-byte duplicate of apt-8.webp.
+// apartmangrid.webp lives at the root and already appears in the bento on /.
 const APT_IMAGES = [
   '/apt-images/apartman-1.webp',
   '/apt-images/apartman-2.webp',
   '/apt-images/apartman-3.webp',
   '/apt-images/apartman-4.webp',
-  '/apt-images/apartman-5.webp',
   '/apt-images/apt-6.webp',
   '/apt-images/apt-7.webp',
   '/apt-images/apt-8.webp',
@@ -22,7 +23,6 @@ const APT_IMAGES = [
   '/apt-images/apt-10.webp',
   '/apt-images/apt-11.webp',
   '/apt-images/apt-12.webp',
-  '/apartmangrid.webp',
 ];
 
 const REST_IMAGES = [
@@ -53,7 +53,6 @@ const REST_IMAGES = [
   '/rest-images/new/koktel-3.webp',
   '/rest-images/new/koktel-4.webp',
   '/rest-images/new/koktel-5.webp',
-  '/restoran-1-scaled.webp',
 ];
 
 const SPA_IMAGES = [
@@ -74,7 +73,6 @@ const SPA_IMAGES = [
   '/spa-images/new/masaza.webp',
   '/spa-images/new/masaza-soba.webp',
   '/spa-images/new/masaza-lice.webp',
-  '/spa-1-scaled.webp',
 ];
 
 const CATEGORIES: { id: Cat; sr: string; en: string; images: string[] }[] = [
