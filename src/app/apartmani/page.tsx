@@ -39,7 +39,7 @@ type Apt = {
 const APTS: Apt[] = [
   { id: 'A1', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-2.webp', video: '/apt-videos/a1.mp4', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'A2', name_sr: 'Duplex', name_en: 'Duplex', img: '/apt-images/apartman-4.webp', video: '/apt-videos/a2.mp4', size: '42', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
-  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apartman-5.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
+  { id: 'B2', name_sr: 'Jednosobni', name_en: 'One-bedroom', img: '/apt-images/apt-8.webp', video: '/apt-videos/b2.mp4', size: '35', cap_sr: 'do 3 gosta', cap_en: 'up to 3 guests' },
   { id: 'B3', name_sr: 'Dvosobni', name_en: 'Two-bedroom', img: '/apt-images/apartman-3.webp', video: '/apt-videos/b3.mp4', size: '51', cap_sr: 'do 4 gosta', cap_en: 'up to 4 guests' },
   { id: 'B4', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apartman-1.webp', video: '/apt-videos/b4.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },
   { id: 'B5', name_sr: 'Studio', name_en: 'Studio', img: '/apt-images/apt-6.webp', video: '/apt-videos/b5.mp4', size: '32', cap_sr: 'do 2 gosta', cap_en: 'up to 2 guests' },

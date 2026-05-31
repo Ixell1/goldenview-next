@@ -10,13 +10,16 @@ export default function NotFound() {
         <div style={{ maxWidth: 560 }}>
           <span className="eyebrow">404</span>
           <h1 style={{ margin: '0.5rem 0 1rem' }}>
-            <span>Stranica nije pronađena</span><br />
-            <span className="cursive">page not found</span>
+            <span data-sr="Stranica nije pronađena" data-en="Page not found">Stranica nije pronađena</span><br />
+            <span className="cursive" data-sr="vratimo se nazad" data-en="let's head back">vratimo se nazad</span>
           </h1>
           <p style={{ color: 'var(--muted)', marginBottom: '2rem' }}>
-            Stranica koju tražite ne postoji ili je premeštena.
+            <span data-sr="Stranica koju tražite ne postoji ili je premeštena."
+                  data-en="The page you are looking for does not exist or has moved.">
+              Stranica koju tražite ne postoji ili je premeštena.
+            </span>
           </p>
-          <Link href="/" className="btn btn-gold">Nazad na početnu</Link>
+          <Link href="/" className="btn btn-gold"><span data-sr="Nazad na početnu" data-en="Back to home">Nazad na početnu</span></Link>
         </div>
       </section>
       <Footer />

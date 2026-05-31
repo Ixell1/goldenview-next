@@ -119,8 +119,15 @@ export default function AptVideoBox({ src, poster, alt = 'Apartman' }: Props) {
       ref={wrapRef}
       className="apt-video-box"
       onClick={toggle}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      }}
       role="button"
-      aria-label={`${alt} — play/pause video`}
+      tabIndex={0}
+      aria-label={`${alt} — pusti ili pauziraj video`}
     >
       {shouldRender ? (
         <video

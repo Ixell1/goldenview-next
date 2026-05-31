@@ -34,7 +34,13 @@ export default function MCBEBookButton({
       e.preventDefault();
       e.stopPropagation();
       inner.click();
+      return;
     }
+    // Fallback: MCBE script failed to load / not initialized yet — don't leave
+    // the user with a dead button; route them to the front desk phone.
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'tel:063604808';
   };
 
   return (

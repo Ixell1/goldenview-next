@@ -15,6 +15,19 @@ export default function KontaktPage() {
 
       <section className="section-pad">
         <div className="container">
+          <div className="section-header reveal" style={{ paddingTop: '5rem' }}>
+            <span className="eyebrow"><span data-sr="Kontakt" data-en="Contact">Kontakt</span></span>
+            <h1 style={{ margin: '0.4rem 0 0.8rem' }}>
+              <span data-sr="Tu smo za" data-en="We are here for">Tu smo za</span>{' '}
+              <span className="cursive" data-sr="vaše pitanje" data-en="your questions">vaše pitanje</span>
+            </h1>
+            <p>
+              <span data-sr="Pozovite, pišite ili nas posetite. Apartmani i restoran imaju odvojene brojeve telefona."
+                    data-en="Call, write or visit us. Apartments and the restaurant have separate phone numbers.">
+                Pozovite, pišite ili nas posetite. Apartmani i restoran imaju odvojene brojeve telefona.
+              </span>
+            </p>
+          </div>
           <div className="contact-cards">
             {/* APARTMANI CARD */}
             <article className="contact-card reveal">
@@ -92,7 +105,7 @@ export default function KontaktPage() {
           {/* MAP */}
           <div className="map-wrap reveal" style={{ marginTop: '3rem' }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2878.5!2d21.8575375!3d43.6486536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47543b13e6733c65%3A0xca34a8ef82069d52!2sGOLDEN%20VIEW!5e0!3m2!1ssr!2srs!4v1700000000000"
+              src="https://www.google.com/maps?q=Golden+View+apartmani+Alekse+Marki%C5%A1i%C4%87a+122+Sokobanja&output=embed&hl=sr&z=15"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

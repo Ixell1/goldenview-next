@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import MCBEBookButton from '@/components/MCBEBookButton';
 import AptVideoBox from '@/components/AptVideoBox';
+import YouTubeFacade from '@/components/YouTubeFacade';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
 type HomeApt = {
@@ -824,8 +825,11 @@ export default function Home() {
           <h2><span data-sr="Rezerviši sada i dobij najbolju cenu" data-en="Book now and get the best rate">Rezerviši sada i dobij najbolju cenu</span></h2>
           <p><span data-sr="Proveri dostupnost i rezerviši direktno — garantovana najbolja cena kada preskočiš posrednika." data-en="Check availability and book directly — guaranteed best rate when you skip the middleman.">Proveri dostupnost i rezerviši direktno — garantovana najbolja cena kada preskočiš posrednika.</span></p>
           <div className="cta-btns">
-            <a href="tel:063604808" className="btn btn-gold">
+            <MCBEBookButton className="btn btn-gold">
               <span data-sr="Proveri dostupnost i rezerviši →" data-en="Check availability & book →">Proveri dostupnost i rezerviši →</span>
+            </MCBEBookButton>
+            <a href="tel:063604808" className="btn btn-outline-white">
+              <span data-sr="Pozovite: 063 / 604-808" data-en="Call: 063 / 604-808">Pozovite: 063 / 604-808</span>
             </a>
           </div>
           <div className="cta-note"><span data-sr="Odgovaramo najkasnije do 1h." data-en="We respond within 1 hour.">Odgovaramo najkasnije do 1h.</span></div>
