@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
-import AvailabilityChecker from '@/components/AvailabilityChecker';
+import MobileCalendarWidget from '@/components/MobileCalendarWidget';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
 export default function KontaktPage() {
@@ -69,7 +69,7 @@ export default function KontaktPage() {
             {/* RESTORAN CARD */}
             <article className="contact-card reveal delay-1">
               <div className="card-img">
-                <Image src="/rest-images/new/ambient-1.webp" alt="Goldenview restoran" fill sizes="(max-width: 1024px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+                <Image src="/rest-images/restoran-1.webp" alt="Goldenview restoran" fill sizes="(max-width: 1024px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               </div>
               <div className="card-body">
                 <span className="eyebrow"><span data-sr="Hrana & piće" data-en="Food & drink">Hrana & piće</span></span>
@@ -93,13 +93,16 @@ export default function KontaktPage() {
                     <span><span data-sr="Svaki dan 08:00 – 23:00" data-en="Every day 08:00 – 23:00">Svaki dan 08:00 – 23:00</span></span>
                   </div>
                 </div>
+                <a href="/rest-images/new/jelovnik.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-gold" style={{ marginTop: '1rem', width: 'fit-content' }}>
+                  <span data-sr="Pogledaj jelovnik" data-en="View menu">Pogledaj jelovnik</span>
+                </a>
               </div>
             </article>
           </div>
 
-          {/* AVAILABILITY */}
-          <div style={{ marginTop: '3rem' }}>
-            <AvailabilityChecker />
+          {/* AVAILABILITY — real Mobile-Calendar booking widget */}
+          <div className="mc-widget-section reveal" style={{ marginTop: '2rem', paddingLeft: 0, paddingRight: 0 }}>
+            <MobileCalendarWidget />
           </div>
 
           {/* MAP */}

@@ -26,6 +26,9 @@ const APT_IMAGES = [
 ];
 
 const REST_IMAGES = [
+  '/rest-images/restoran-1.webp',
+  '/rest-images/restoran-3.webp',
+  '/rest-images/rest-7.webp',
   '/rest-images/new/ambient-1.webp',
   '/rest-images/new/ambient-2.webp',
   '/rest-images/new/lounge-1.webp',
