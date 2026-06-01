@@ -46,6 +46,7 @@ export default function Footer() {
           <Link href="/restoran"><span data-sr="Restoran" data-en="Restaurant">Restoran</span></Link>
           <Link href="/wellness">Wellness &amp; SPA</Link>
           <Link href="/galerija"><span data-sr="Galerija" data-en="Gallery">Galerija</span></Link>
+          <Link href="/vesti-i-objave">Blog</Link>
         </div>
 
         <div className="footer-col" id="kontakt">

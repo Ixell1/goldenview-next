@@ -14,6 +14,7 @@ const LINKS: NavLink[] = [
   { href: '/#destinacija', sr: 'Destinacija', en: 'Destination' },
   { href: '/wellness', sr: 'Wellness', en: 'Wellness' },
   { href: '/galerija', sr: 'Galerija', en: 'Gallery' },
+  { href: '/vesti-i-objave', sr: 'Blog', en: 'Blog' },
   { href: '/kontakt', sr: 'Kontakt', en: 'Contact' },
 ];
 
