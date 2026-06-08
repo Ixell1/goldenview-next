@@ -123,7 +123,6 @@ type Promo = {
   img: string;
   period_sr: string; period_en: string;
   title_sr: string; title_en: string;
-  cursive_sr?: string; cursive_en?: string;
   desc_sr: string; desc_en: string;
   tags?: string[];
   tagsEn?: string[];
@@ -133,8 +132,7 @@ const PROMO_PACKAGES: Promo[] = [
   {
     img: '/apt-images/apartman-1.webp',
     period_sr: '10 noćenja · duži boravak', period_en: '10 nights · longer stay',
-    title_sr: 'Duži', title_en: 'Longer',
-    cursive_sr: 'odmor 🌿', cursive_en: 'getaway 🌿',
+    title_sr: 'Duži odmor', title_en: 'Longer getaway',
     desc_sr: 'Letovanje u Sokobanji za one koji žele da ostanu duže. Specijalna cena za 10 noćenja, sa doručkom uključenim svakog jutra.',
     desc_en: 'A Sokobanja summer for those who want to stay longer. Special rate for 10 nights, breakfast included every morning.',
     tags: ['10 noćenja', 'Doručak', 'Specijalna cena'],
@@ -143,8 +141,7 @@ const PROMO_PACKAGES: Promo[] = [
   {
     img: '/apt-images/apt-9.webp',
     period_sr: 'Pon - pet · 4 noćenja', period_en: 'Mon - Fri · 4 nights',
-    title_sr: 'Workation', title_en: 'Workation',
-    cursive_sr: '💻', cursive_en: '💻',
+    title_sr: 'Workation – Radni odmor', title_en: 'Workation – Work retreat',
     desc_sr: 'Radna nedelja u Sokobanji — posebna cena za digitalne nomade i remote radnike. Brz internet, mirna zona za rad i doručak uključen.',
     desc_en: 'A work week in Sokobanja — special rate for digital nomads and remote workers. Fast internet, a quiet work zone and breakfast included.',
     tags: ['4 noćenja', 'Brz internet', 'Mirna zona', 'Doručak'],
@@ -153,8 +150,7 @@ const PROMO_PACKAGES: Promo[] = [
   {
     img: '/spa-images/new/lezaljke.webp',
     period_sr: '2 noći · za dvoje', period_en: '2 nights · for two',
-    title_sr: 'Spa vikend za', title_en: 'Spa weekend for',
-    cursive_sr: 'dvoje', cursive_en: 'two',
+    title_sr: 'Spa vikend za dvoje', title_en: 'Spa weekend for two',
     desc_sr: 'Vikend osmišljen za potpuno opuštanje — 2 noćenja sa doručkom, profesionalna masaža i neograničeno korišćenje spa centra (bazeni, sauna, đakuzi, kaldarijum).',
     desc_en: 'A weekend built for total relaxation — 2 nights with breakfast, a professional massage and unlimited spa access (pools, sauna, jacuzzi, caldarium).',
     tags: ['2 noći', 'Doručak', 'Masaža', 'SPA centar'],
@@ -310,12 +306,7 @@ export default function Home() {
                 </div>
                 <div className="promo-body">
                   <h3>
-                    <span data-sr={p.title_sr} data-en={p.title_en}>{p.title_sr}</span>{' '}
-                    {p.cursive_sr ? (
-                      <span className="cursive" data-sr={p.cursive_sr} data-en={p.cursive_en}>{p.cursive_sr}</span>
-                    ) : (
-                      <span className="cursive">Goldenview</span>
-                    )}
+                    <span data-sr={p.title_sr} data-en={p.title_en}>{p.title_sr}</span>
                   </h3>
                   <p className="promo-desc"><span data-sr={p.desc_sr} data-en={p.desc_en}>{p.desc_sr}</span></p>
                   <div className="promo-divider"></div>
