@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Restoran',
-  description: 'Domaća kuhinja sa svežim namirnicama, lounge bar sa koktelima i topla atmosfera. Otvoreni svaki dan 08:00 – 23:00.',
+  description: 'Domaća kuhinja sa svežim namirnicama, lounge bar sa koktelima i topla atmosfera. Otvoreni svaki dan 08:30 – 00:00. Rezervacije: 063/661-263.',
   alternates: { canonical: '/restoran' },
   openGraph: {
     title: 'Restoran Goldenview Sokobanja',
@@ -196,9 +196,8 @@ export default function RestoranPage() {
               </div>
               <h4><span data-sr="Radno vreme" data-en="Working hours">Radno vreme</span></h4>
               <p>
-                <span data-sr="Ponedeljak – Nedelja" data-en="Monday – Sunday">Ponedeljak – Nedelja</span><br />
-                08:00 – 23:00<br />
-                <span data-sr="Kuhinja do 22:00" data-en="Kitchen until 22:00">Kuhinja do 22:00</span>
+                <span data-sr="Svaki dan" data-en="Every day">Svaki dan</span><br />
+                08:30 – 00:00
               </p>
             </div>
             <div className="info-card reveal delay-1">
@@ -207,10 +206,11 @@ export default function RestoranPage() {
               </div>
               <h4><span data-sr="Rezervacija" data-en="Reservation">Rezervacija</span></h4>
               <p>
-                <span data-sr="Preporučujemo rezervaciju za grupe veće od 6 osoba. Pozovite 063 / 604-808."
-                      data-en="We recommend reservation for groups larger than 6. Call 063 / 604-808.">
-                  Preporučujemo rezervaciju za grupe veće od 6 osoba. Pozovite 063 / 604-808.
+                <span data-sr="Preporučujemo rezervaciju za grupe veće od 6 osoba. Pozovite "
+                      data-en="We recommend reservation for groups larger than 6. Call ">
+                  Preporučujemo rezervaciju za grupe veće od 6 osoba. Pozovite{' '}
                 </span>
+                <a href="tel:063661263" style={{ color: 'var(--gold)', fontWeight: 700 }}>063 / 661-263</a>.
               </p>
             </div>
             <div className="info-card reveal delay-2">
@@ -224,6 +224,59 @@ export default function RestoranPage() {
                   U sklopu kompleksa Goldenview, Alekse Markišića 122, Sokobanja. Parking obezbeđen.
                 </span>
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LOKACIJA I KONTAKT */}
+      <section className="section-pad">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="eyebrow"><span data-sr="Lokacija i kontakt" data-en="Location & contact">Lokacija i kontakt</span></span>
+            <h2>
+              <span data-sr="Gde nas" data-en="Where to">Gde nas</span> <span className="cursive" data-sr="naći" data-en="find us">naći</span>
+            </h2>
+          </div>
+          <div className="rest-contact-grid reveal">
+            <div className="rest-contact-info">
+              <div className="rest-contact-row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div>
+                  <strong><span data-sr="Adresa" data-en="Address">Adresa</span></strong>
+                  <span>Alekse Markišića 122, Sokobanja</span>
+                </div>
+              </div>
+              <div className="rest-contact-row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                <div>
+                  <strong><span data-sr="Telefon" data-en="Phone">Telefon</span></strong>
+                  <a href="tel:063661263">063 / 661-263</a>
+                </div>
+              </div>
+              <div className="rest-contact-row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div>
+                  <strong><span data-sr="Radno vreme" data-en="Working hours">Radno vreme</span></strong>
+                  <span><span data-sr="Svaki dan: 08:30 – 00:00" data-en="Every day: 08:30 – 00:00">Svaki dan: 08:30 – 00:00</span></span>
+                </div>
+              </div>
+              <div className="rest-contact-row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <div>
+                  <strong>Email</strong>
+                  <a href="mailto:info@goldenview.rs">info@goldenview.rs</a>
+                </div>
+              </div>
+            </div>
+            <div className="rest-contact-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.978511333303!2d21.85758832617656!3d43.64861542110235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47543b1197bf3281%3A0x8c3b7338d75499c7!2sRestoran%20Golden%20View!5e0!3m2!1ssr!2srs!4v1780992288860!5m2!1ssr!2srs"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Restoran Golden View — lokacija"
+              />
             </div>
           </div>
         </div>

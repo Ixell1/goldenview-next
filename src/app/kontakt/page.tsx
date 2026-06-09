@@ -90,7 +90,7 @@ export default function KontaktPage() {
                   </div>
                   <div className="card-info-row">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span><span data-sr="Svaki dan 08:00 – 23:00" data-en="Every day 08:00 – 23:00">Svaki dan 08:00 – 23:00</span></span>
+                    <span><span data-sr="Svaki dan 08:30 – 00:00" data-en="Every day 08:30 – 00:00">Svaki dan 08:30 – 00:00</span></span>
                   </div>
                 </div>
                 <a href="/rest-images/new/jelovnik.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-gold" style={{ marginTop: '1rem', width: 'fit-content' }}>

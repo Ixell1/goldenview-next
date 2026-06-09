@@ -66,7 +66,7 @@ const RESTAURANT = {
   openingHoursSpecification: [{
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '08:00', closes: '23:00',
+    opens: '08:30', closes: '00:00',
   }],
   hasMenu: `${SITE}/rest-images/new/jelovnik.pdf`,
 };

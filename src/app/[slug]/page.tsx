@@ -75,6 +75,11 @@ function renderBlock(b: Block, i: number) {
     case 'h2': return <h2 key={i}>{renderText(b.text, `h2-${i}`)}</h2>;
     case 'h3': return <h3 key={i}>{renderText(b.text, `h3-${i}`)}</h3>;
     case 'ul': return <ul key={i}>{b.items.map((it, j) => <li key={j}>{renderText(it, `li-${i}-${j}`)}</li>)}</ul>;
+    case 'map': return (
+      <div key={i} className="blog-map">
+        <iframe src={b.src} title={b.title} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
+      </div>
+    );
     default: return <p key={i}>{renderText(b.text, `p-${i}`)}</p>;
   }
 }

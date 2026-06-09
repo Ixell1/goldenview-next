@@ -6,7 +6,8 @@ export type Block =
   | { type: 'p'; text: string }
   | { type: 'h2'; text: string }
   | { type: 'h3'; text: string }
-  | { type: 'ul'; items: string[] };
+  | { type: 'ul'; items: string[] }
+  | { type: 'map'; src: string; title: string };
 
 export type BlogPost = {
   slug: string;
@@ -137,7 +138,8 @@ export const BLOG_POSTS: BlogPost[] = [
       { type: 'h2', text: '2. Župan Restoran' },
       { type: 'p', text: 'Restoran Župan nalazi se nadomak [reke Moravice](https://sr.wikipedia.org/wiki/Sokobanjska_Moravica) u naselju [Jabukar](https://maps.app.goo.gl/rmvapEh7eS7NoLUu8) i predstavlja elegantan spoj udobnosti i tradicije. Ambijent je klasičan, uređen sa pažnjom i stilom, a atmosfera mirna i prijatna — popularan među poslovnim gostima i porodicama.' },
       { type: 'h2', text: '3. Restoran Golden View' },
-      { type: 'p', text: '[Restoran Golden View](/restoran) je mesto koje osvaja već na prvi pogled. Nalazi se u naselju Palilula i pruža posetiocima predivan ambijent. Enterijer je moderan ali prijatan, a atmosfera smirena i elegantna — spoj autentičnih ukusa juga Srbije i udobnosti.' },
+      { type: 'p', text: '[Restoran Golden View](/restoran) je mesto koje osvaja već na prvi pogled. Nalazi se u naselju Palilula i pruža posetiocima predivan ambijent. Enterijer je moderan ali prijatan, a atmosfera smirena i elegantna — spoj autentičnih ukusa juga Srbije i udobnosti. Radno vreme je svaki dan od 08:30 do 00:00, a za rezervaciju pozovite 063/661-263.' },
+      { type: 'map', src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.978511333303!2d21.85758832617656!3d43.64861542110235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47543b1197bf3281%3A0x8c3b7338d75499c7!2sRestoran%20Golden%20View!5e0!3m2!1ssr!2srs!4v1780992288860!5m2!1ssr!2srs', title: 'Restoran Golden View — lokacija na mapi' },
       { type: 'p', text: 'Tokom dana restoran pruža osećaj otvorenosti i mira, dok se uveče prostor pretvara u romantično okruženje idealno za parove ili mirnu porodičnu večeru. Golden View je više od restorana — to je prostor u kojem se uživa u svakom trenutku, bilo da pijete kafu pored bazena ili posmatrate zalazak sunca nad Sokobanjom.' },
       { type: 'h2', text: '4. Restoran Zaplet' },
       { type: 'p', text: 'Zaplet unosi dašak modernog duha u Sokobanju. Enterijer je savremen, bašta prostrana i osvetljena, a pogled na centar Sokobanje i [zavičajni muzej](https://share.google/9A2eVr5wepHoC6w1v) posebno lep u večernjim satima. Mesto koje privlači mlađe goste, parove i grupe prijatelja.' },
