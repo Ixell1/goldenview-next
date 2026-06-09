@@ -50,7 +50,7 @@ export default function MCBEBookButton({
         className={`mcbe-overlay-wrap${fullWidth ? ' mcbe-overlay-block' : ''}`}
         onClick={handleClick}
       >
-        <span className={`${className} mcbe-overlay-visible`}>{children}</span>
+        <span className={`${className} mcbe-overlay-visible`} aria-hidden="true">{children}</span>
         <div className="mcbe-widget-button mcbe-overlay-hidden" data-token={TOKEN} />
       </span>
       <Script src={JS_SRC} strategy="afterInteractive" />

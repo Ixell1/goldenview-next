@@ -102,12 +102,12 @@
       opacity:0;
       transform:translateY(36px);
       transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.34,1.56,0.64,1);
-      animation:revealForce 0.75s ease-out 3s forwards;
+      animation:revealForce 0.6s ease-out 1.2s forwards;
     }
     .reveal.revealed { opacity:1; transform:translateY(0); animation:none; }
-    .reveal-left  { opacity:0; transform:translateX(-36px); transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.34,1.56,0.64,1); animation:revealForce 0.75s ease-out 3s forwards; }
+    .reveal-left  { opacity:0; transform:translateX(-36px); transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.34,1.56,0.64,1); animation:revealForce 0.6s ease-out 1.2s forwards; }
     .reveal-left.revealed { opacity:1; transform:translateX(0); animation:none; }
-    .reveal-right { opacity:0; transform:translateX(36px);  transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.34,1.56,0.64,1); animation:revealForce 0.75s ease-out 3s forwards; }
+    .reveal-right { opacity:0; transform:translateX(36px);  transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.34,1.56,0.64,1); animation:revealForce 0.6s ease-out 1.2s forwards; }
     .reveal-right.revealed { opacity:1; transform:translateX(0); animation:none; }
     .delay-1 { transition-delay:0.1s; }
     .delay-2 { transition-delay:0.2s; }
@@ -348,17 +348,32 @@
       background-color:rgba(255,255,255,0.16) !important;
       color:#fff !important;
     }
-    /* Keep the absolutely-positioned datepicker inside the viewport on mobile */
+    /* Keep the date picker inside the viewport on mobile. The MCBE widget
+       uses flatpickr, whose calendar popup is appended to <body> (not inside
+       .mcbe-widget-searchbar), and shows TWO months (~602px wide) which
+       clips off the right edge of a 390px screen. Force a single-month,
+       viewport-width layout on phones. */
     @media (max-width:768px) {
-      .mcbe-widget-searchbar [class*="calendar"],
-      .mcbe-widget-searchbar [class*="datepicker"],
-      .mcbe-widget-searchbar [class*="popup"],
-      .mcbe-widget-searchbar [class*="dropdown"] {
-        max-width:calc(100vw - 1.5rem) !important;
-        left:0 !important;
-        right:0 !important;
+      .flatpickr-calendar {
+        max-width:calc(100vw - 1.25rem) !important;
+        width:calc(100vw - 1.25rem) !important;
+        left:0.625rem !important;
+        right:0.625rem !important;
+        box-sizing:border-box !important;
         overflow-x:auto !important;
       }
+      /* flatpickr renders months side by side in .flatpickr-months /
+         .flatpickr-innerContainer — stack to a single column so only one
+         month is visible and nothing spills off-screen. */
+      .flatpickr-calendar.multiMonth .flatpickr-months,
+      .flatpickr-calendar .flatpickr-innerContainer {
+        flex-wrap:wrap !important;
+      }
+      .flatpickr-calendar .flatpickr-rContainer:nth-child(n+2),
+      .flatpickr-calendar .flatpickr-month:nth-child(n+2) {
+        display:none !important;
+      }
+      .flatpickr-days, .dayContainer { max-width:100% !important; width:100% !important; }
     }
 
     /* ===================== AVAILABILITY CHECKER ===================== */

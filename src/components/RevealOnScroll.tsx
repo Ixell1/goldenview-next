@@ -36,7 +36,7 @@ export default function RevealOnScroll() {
     // unusual browser), force-reveal so content never stays invisible.
     const fallback = window.setTimeout(() => {
       root.querySelectorAll('[class*="reveal"]:not(.revealed)').forEach((el) => el.classList.add('revealed'));
-    }, 2500);
+    }, 1000);
 
     // Counter animation
     const counters = root.querySelectorAll<HTMLElement>('.counter');
