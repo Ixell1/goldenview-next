@@ -329,6 +329,38 @@
       .mc-widget-section { padding:2rem 1rem; }
     }
 
+    /* ===================== MCBE WIDGET — BRAND OVERRIDES =====================
+       The Mobile-Calendar searchbar ships its own dark-blue theme. Recolor
+       the input/searchbar surface to brand gold-on-cream, and stop its
+       date-picker popup (rendered absolutely) from spilling off the right
+       edge on phones. */
+    .mcbe-widget-searchbar {
+      --mcbe-primary:#C9A84C;
+    }
+    /* Recolor the dark-blue bar -> brand gold */
+    .mcbe-widget-searchbar,
+    .mcbe-widget-searchbar [class*="searchbar"],
+    .mcbe-widget-searchbar [class*="bar"] {
+      background-color:#C9A84C !important;
+    }
+    .mcbe-widget-searchbar [class*="field"],
+    .mcbe-widget-searchbar [class*="input"] {
+      background-color:rgba(255,255,255,0.16) !important;
+      color:#fff !important;
+    }
+    /* Keep the absolutely-positioned datepicker inside the viewport on mobile */
+    @media (max-width:768px) {
+      .mcbe-widget-searchbar [class*="calendar"],
+      .mcbe-widget-searchbar [class*="datepicker"],
+      .mcbe-widget-searchbar [class*="popup"],
+      .mcbe-widget-searchbar [class*="dropdown"] {
+        max-width:calc(100vw - 1.5rem) !important;
+        left:0 !important;
+        right:0 !important;
+        overflow-x:auto !important;
+      }
+    }
+
     /* ===================== AVAILABILITY CHECKER ===================== */
     .availability-bar {
       background:#fff;
@@ -1020,7 +1052,22 @@
       .availability-cta { width:100%; }
       .footer-grid { grid-template-columns:1fr; gap:2rem; }
       .gallery-slide { flex:0 0 calc(80% - 0.5rem); }
-      .apts-section, .dest-section, .testi-section, .cta-section { margin:0 0.75rem; }
+      .apts-section, .testi-section, .cta-section { margin:0 0.75rem; }
+
+      /* FIX: Destinacija "Zeleno srce Srbije" was clipped on the right —
+         the section is capped at max-width:70% on desktop; on mobile make
+         it full width and let the content sit in a single column. */
+      .dest-section { max-width:none; margin:2rem 0.75rem; }
+      .dest-content { padding:2.5rem 1.5rem; }
+      .dest-content h2 { font-size:1.9rem; }
+
+      /* FIX: testimonials were too tall+narrow. One review fills the screen
+         comfortably — wider card, shorter height, normal (non-italic) quote. */
+      .testi-card { flex:0 0 calc(100% - 1rem) !important; padding:1.6rem 1.5rem; }
+      .testi-quote { font-size:0.95rem; line-height:1.6; font-style:normal; -webkit-line-clamp:none; }
+
+      /* FIX: detach the bottom CTA from the footer (was touching). */
+      .cta-section { margin-bottom:3rem; }
     }
     @media (max-width:480px) {
       h1 { font-size:2.1rem; }
@@ -1029,6 +1076,16 @@
       .hero-btns { flex-direction:column; }
       .cta-btns { flex-direction:column; align-items:center; }
     }
+
+    /* CTA stacked layout: booking button on top, phone link below it */
+    .cta-btns-stack { flex-direction:column; align-items:center; gap:0.9rem; }
+    .cta-phone {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      color:rgba(255,255,255,0.85); font-size:0.92rem; font-weight:600;
+      transition:color 0.2s;
+    }
+    .cta-phone svg { color:var(--gold-light); }
+    .cta-phone:hover { color:#fff; }
 
     /* ===================== MOBILE TOUCH FIXES ===================== */
     /* Prevent zoom on double-tap for all slider buttons and interactive elements */

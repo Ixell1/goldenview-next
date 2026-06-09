@@ -809,6 +809,11 @@ export default function Home() {
               </button>
             </div>
           </div>
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <Link href="/galerija" className="btn btn-gold">
+              <span data-sr="Pogledaj celu galeriju" data-en="View full gallery">Pogledaj celu galeriju</span>
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -24,9 +24,9 @@ declare global {
 
 export default function MobileCalendarWidget({
   token = DEFAULT_TOKEN,
-  primaryColor = '#ffffff',
+  primaryColor = '#C9A84C',
   showGuests = true,
-  darkMode = true,
+  darkMode = false,
   className,
 }: Props) {
   const mountedRef = useRef(false);

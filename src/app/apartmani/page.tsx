@@ -192,19 +192,16 @@ export default function ApartmaniPage() {
       </section>
 
       <CTASection
+        booking
+        phone="063604808"
         eyebrowSr="Direktna rezervacija"
         eyebrowEn="Book direct"
         titleSr="Rezervišite direktno"
         titleEn="Book directly"
         titleCursiveSr="za najbolju cenu"
         titleCursiveEn="for the best price"
-        bodySr="Pozovite nas i saznajte dostupnost i cene za vaš termin. Direktna rezervacija garantuje najbolju cenu."
-        bodyEn="Call us and find out availability and prices for your dates. Direct booking guarantees the best price."
-        primarySr="Pozovite 063 / 604-808"
-        primaryEn="Call 063 / 604-808"
-        secondaryHref="/kontakt"
-        secondarySr="Kontakt"
-        secondaryEn="Contact"
+        bodySr="Proverite dostupnost i cene za vaš termin. Direktna rezervacija garantuje najbolju cenu."
+        bodyEn="Check availability and prices for your dates. Direct booking guarantees the best price."
       />
 
       <Footer />
