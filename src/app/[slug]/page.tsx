@@ -42,12 +42,40 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 const fmt = (iso: string) =>
   new Date(iso).toLocaleDateString('sr-RS', { day: 'numeric', month: 'long', year: 'numeric' });
 
+// Parse lightweight markdown links [text](url) inside blog copy. Internal
+// goldenview links render as <Link> (client nav + SEO interlinking); external
+// links (Google Maps, Wikipedia, etc.) open in a new tab with rel safety.
+const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+function renderText(text: string, keyBase: string) {
+  const parts: React.ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  LINK_RE.lastIndex = 0;
+  while ((m = LINK_RE.exec(text)) !== null) {
+    if (m.index > last) parts.push(text.slice(last, m.index));
+    const [, label, href] = m;
+    const isInternal = href.startsWith('/') || href.startsWith('https://goldenview.rs');
+    const path = isInternal ? href.replace('https://goldenview.rs', '') || '/' : href;
+    if (isInternal) {
+      parts.push(<Link key={`${keyBase}-${m.index}`} href={path} className="blog-link">{label}</Link>);
+    } else {
+      parts.push(
+        <a key={`${keyBase}-${m.index}`} href={href} target="_blank" rel="noopener noreferrer" className="blog-link">{label}</a>
+      );
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return parts.length ? parts : text;
+}
+
 function renderBlock(b: Block, i: number) {
   switch (b.type) {
-    case 'h2': return <h2 key={i}>{b.text}</h2>;
-    case 'h3': return <h3 key={i}>{b.text}</h3>;
-    case 'ul': return <ul key={i}>{b.items.map((it, j) => <li key={j}>{it}</li>)}</ul>;
-    default: return <p key={i}>{b.text}</p>;
+    case 'h2': return <h2 key={i}>{renderText(b.text, `h2-${i}`)}</h2>;
+    case 'h3': return <h3 key={i}>{renderText(b.text, `h3-${i}`)}</h3>;
+    case 'ul': return <ul key={i}>{b.items.map((it, j) => <li key={j}>{renderText(it, `li-${i}-${j}`)}</li>)}</ul>;
+    default: return <p key={i}>{renderText(b.text, `p-${i}`)}</p>;
   }
 }
 

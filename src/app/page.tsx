@@ -592,6 +592,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            <Link href="/sokobanja-sta-videti-lista-popularnih-atrakcija-saveti-i-plan-izleta" className="btn btn-gold" style={{ marginTop: '2rem' }}>
+              <span data-sr="Otkrij šta videti u Sokobanji →" data-en="Discover what to see in Sokobanja →">Otkrij šta videti u Sokobanji →</span>
+            </Link>
           </div>
         </div>
       </section>
