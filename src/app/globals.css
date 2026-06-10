@@ -350,38 +350,95 @@
       background-color:rgba(255,255,255,0.10) !important;
       color:#fff !important;
     }
+    /* The selected dates (10 / 11 / Jun 2026 / Wednesday) ship with MCBE's
+       dark-blue text colour, which is invisible on our dark bar. Force them
+       white. The big day number is muted gold for emphasis. */
+    .mcbe-widget-searchbar .mcbe-date-section,
+    .mcbe-widget-searchbar .mcbe-date-section *,
+    .mcbe-widget-searchbar .mcbe-date-day,
+    .mcbe-widget-searchbar .mcbe-date-month,
+    .mcbe-widget-searchbar .mcbe-date-weekday,
+    .mcbe-widget-searchbar .mcbe-icon { color:#fff !important; stroke:#fff !important; }
+    .mcbe-widget-searchbar .mcbe-date-day { color:var(--gold-light) !important; }
+    .mcbe-widget-searchbar .mcbe-date-arrow,
+    .mcbe-widget-searchbar .mcbe-date-arrow * { color:rgba(255,255,255,0.6) !important; stroke:rgba(255,255,255,0.6) !important; }
     .mcbe-widget-searchbar .mcbe-guests-section { background:#fff !important; }
 
-    /* Keep the date picker inside the viewport on mobile. The MCBE widget
-       uses flatpickr in rangeMode, which lays out TWO 280px .dayContainer
-       months side-by-side (~560px) and is appended to <body>, so it spills
-       off a 390px screen. Real fix: hide the 2nd month, drop the inner
-       min-widths, and clamp the popup to the viewport. */
+    /* =============== FLATPICKR DATE-PICKER FULL RESTYLE ===============
+       The MCBE widget uses flatpickr in rangeMode with TWO months shown
+       side-by-side (~560px). On a phone that overflows the screen and the
+       duplicated weekday header (Sun..Sat Sun..Sat) breaks the layout.
+       We restyle it into a single clean month with brand colours. */
+    .flatpickr-calendar {
+      border-radius:16px !important;
+      box-shadow:0 16px 48px rgba(15,14,12,0.22) !important;
+      border:1px solid var(--border) !important;
+      padding:6px !important;
+      background:#fff !important;
+      font-family:'Plus Jakarta Sans', sans-serif !important;
+    }
+    /* Collapse to a SINGLE month everywhere: hide every 2nd-and-later
+       month title, weekday row and day grid. Uses the adjacent-sibling
+       selector so it is position-independent and robust. */
+    .flatpickr-calendar .flatpickr-month + .flatpickr-month,
+    .flatpickr-calendar .flatpickr-weekdaycontainer + .flatpickr-weekdaycontainer,
+    .flatpickr-calendar .dayContainer + .dayContainer { display:none !important; }
+    /* Month title "Jun 2026" */
+    .flatpickr-current-month,
+    .flatpickr-current-month .cur-month,
+    .flatpickr-current-month .numInput,
+    .flatpickr-current-month input.cur-year { color:var(--ink) !important; font-weight:700 !important; }
+    /* Prev/next arrows */
+    .flatpickr-prev-month svg,
+    .flatpickr-next-month svg { fill:var(--gold) !important; }
+    .flatpickr-prev-month:hover svg,
+    .flatpickr-next-month:hover svg { fill:var(--gold-light) !important; }
+    /* Weekday header (Pon..Ned) */
+    .flatpickr-weekday { color:var(--muted) !important; font-weight:700 !important; font-size:0.72rem !important; }
+    /* Day cells */
+    .flatpickr-day {
+      color:var(--ink) !important; border-radius:8px !important;
+      border:none !important; font-weight:600 !important;
+    }
+    .flatpickr-day:hover { background:var(--gold-10) !important; color:var(--ink) !important; }
+    .flatpickr-day.today { border:1.5px solid var(--gold) !important; }
+    .flatpickr-day.selected,
+    .flatpickr-day.startRange,
+    .flatpickr-day.endRange {
+      background:var(--gold) !important; border-color:var(--gold) !important;
+      color:#fff !important; box-shadow:none !important;
+    }
+    .flatpickr-day.inRange {
+      background:var(--gold-15) !important; color:var(--ink) !important;
+      box-shadow:-5px 0 0 var(--gold-15), 5px 0 0 var(--gold-15) !important;
+    }
+    .flatpickr-day.flatpickr-disabled,
+    .flatpickr-day.prevMonthDay,
+    .flatpickr-day.nextMonthDay { color:rgba(15,14,12,0.25) !important; }
+
+    /* Mobile: clamp the popup inside the viewport, single full-width month */
     @media (max-width:768px) {
       .flatpickr-calendar {
         max-width:calc(100vw - 1.25rem) !important;
-        width:auto !important;
+        width:calc(100vw - 1.25rem) !important;
         left:0.625rem !important;
-        right:0.625rem !important;
+        right:auto !important;
         box-sizing:border-box !important;
+        overflow:hidden !important;
       }
+      .flatpickr-calendar .flatpickr-months,
       .flatpickr-calendar .flatpickr-innerContainer,
       .flatpickr-calendar .flatpickr-rContainer,
-      .flatpickr-calendar .flatpickr-days {
-        width:auto !important;
+      .flatpickr-calendar .flatpickr-weekdays,
+      .flatpickr-calendar .flatpickr-weekdaycontainer,
+      .flatpickr-calendar .flatpickr-days,
+      .flatpickr-calendar .dayContainer {
+        width:100% !important;
         min-width:0 !important;
         max-width:100% !important;
       }
-      /* flatpickr sets an inline px width on .flatpickr-days — override it */
-      .flatpickr-calendar .flatpickr-days { width:280px !important; }
-      .flatpickr-calendar .dayContainer {
-        min-width:0 !important;
-        width:280px !important;
-        max-width:280px !important;
-      }
-      /* Hide the second month entirely (rangeMode shows 2) */
-      .flatpickr-calendar .dayContainer:nth-child(n+2),
-      .flatpickr-calendar .flatpickr-month:nth-child(n+2) { display:none !important; }
+      .flatpickr-calendar .dayContainer { justify-content:space-around !important; }
+      .flatpickr-day { max-width:13.5% !important; height:38px !important; line-height:38px !important; }
     }
 
     /* ===================== AVAILABILITY CHECKER ===================== */
