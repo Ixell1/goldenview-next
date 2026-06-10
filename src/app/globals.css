@@ -377,12 +377,6 @@
       background:#fff !important;
       font-family:'Plus Jakarta Sans', sans-serif !important;
     }
-    /* Collapse to a SINGLE month everywhere: hide every 2nd-and-later
-       month title, weekday row and day grid. Uses the adjacent-sibling
-       selector so it is position-independent and robust. */
-    .flatpickr-calendar .flatpickr-month + .flatpickr-month,
-    .flatpickr-calendar .flatpickr-weekdaycontainer + .flatpickr-weekdaycontainer,
-    .flatpickr-calendar .dayContainer + .dayContainer { display:none !important; }
     /* Month title "Jun 2026" */
     .flatpickr-current-month,
     .flatpickr-current-month .cur-month,
@@ -416,8 +410,15 @@
     .flatpickr-day.prevMonthDay,
     .flatpickr-day.nextMonthDay { color:rgba(15,14,12,0.25) !important; }
 
-    /* Mobile: clamp the popup inside the viewport, single full-width month */
+    /* Mobile: clamp the popup inside the viewport + collapse to a SINGLE
+       month so the dual-month layout can't overflow a phone screen. Desktop
+       keeps both months (useful for picking a date range across months).
+       Adjacent-sibling selector hides the 2nd month title, weekday row and
+       day grid — position-independent and robust against flatpickr internals. */
     @media (max-width:768px) {
+      .flatpickr-calendar .flatpickr-month + .flatpickr-month,
+      .flatpickr-calendar .flatpickr-weekdaycontainer + .flatpickr-weekdaycontainer,
+      .flatpickr-calendar .dayContainer + .dayContainer { display:none !important; }
       .flatpickr-calendar {
         max-width:calc(100vw - 1.25rem) !important;
         width:calc(100vw - 1.25rem) !important;
