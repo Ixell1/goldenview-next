@@ -334,46 +334,54 @@
        the input/searchbar surface to brand gold-on-cream, and stop its
        date-picker popup (rendered absolutely) from spilling off the right
        edge on phones. */
-    .mcbe-widget-searchbar {
-      --mcbe-primary:#C9A84C;
-    }
-    /* Recolor the dark-blue bar -> brand gold */
-    .mcbe-widget-searchbar,
+    /* Recolor the searchbar surface to brand dark (same ink as the marquee
+       bar / footer). The widget renders its bar as .mcbe-searchbar-widget
+       with an inline background from data-primary-color, plus generic
+       searchbar/bar wrappers. */
+    .mcbe-widget-searchbar .mcbe-searchbar-widget,
     .mcbe-widget-searchbar [class*="searchbar"],
     .mcbe-widget-searchbar [class*="bar"] {
-      background-color:#C9A84C !important;
+      background:#1A1815 !important;
+      background-color:#1A1815 !important;
     }
+    .mcbe-widget-searchbar .mcbe-date-section,
     .mcbe-widget-searchbar [class*="field"],
     .mcbe-widget-searchbar [class*="input"] {
-      background-color:rgba(255,255,255,0.16) !important;
+      background-color:rgba(255,255,255,0.10) !important;
       color:#fff !important;
     }
+    .mcbe-widget-searchbar .mcbe-guests-section { background:#fff !important; }
+
     /* Keep the date picker inside the viewport on mobile. The MCBE widget
-       uses flatpickr, whose calendar popup is appended to <body> (not inside
-       .mcbe-widget-searchbar), and shows TWO months (~602px wide) which
-       clips off the right edge of a 390px screen. Force a single-month,
-       viewport-width layout on phones. */
+       uses flatpickr in rangeMode, which lays out TWO 280px .dayContainer
+       months side-by-side (~560px) and is appended to <body>, so it spills
+       off a 390px screen. Real fix: hide the 2nd month, drop the inner
+       min-widths, and clamp the popup to the viewport. */
     @media (max-width:768px) {
       .flatpickr-calendar {
         max-width:calc(100vw - 1.25rem) !important;
-        width:calc(100vw - 1.25rem) !important;
+        width:auto !important;
         left:0.625rem !important;
         right:0.625rem !important;
         box-sizing:border-box !important;
-        overflow-x:auto !important;
       }
-      /* flatpickr renders months side by side in .flatpickr-months /
-         .flatpickr-innerContainer — stack to a single column so only one
-         month is visible and nothing spills off-screen. */
-      .flatpickr-calendar.multiMonth .flatpickr-months,
-      .flatpickr-calendar .flatpickr-innerContainer {
-        flex-wrap:wrap !important;
+      .flatpickr-calendar .flatpickr-innerContainer,
+      .flatpickr-calendar .flatpickr-rContainer,
+      .flatpickr-calendar .flatpickr-days {
+        width:auto !important;
+        min-width:0 !important;
+        max-width:100% !important;
       }
-      .flatpickr-calendar .flatpickr-rContainer:nth-child(n+2),
-      .flatpickr-calendar .flatpickr-month:nth-child(n+2) {
-        display:none !important;
+      /* flatpickr sets an inline px width on .flatpickr-days — override it */
+      .flatpickr-calendar .flatpickr-days { width:280px !important; }
+      .flatpickr-calendar .dayContainer {
+        min-width:0 !important;
+        width:280px !important;
+        max-width:280px !important;
       }
-      .flatpickr-days, .dayContainer { max-width:100% !important; width:100% !important; }
+      /* Hide the second month entirely (rangeMode shows 2) */
+      .flatpickr-calendar .dayContainer:nth-child(n+2),
+      .flatpickr-calendar .flatpickr-month:nth-child(n+2) { display:none !important; }
     }
 
     /* ===================== AVAILABILITY CHECKER ===================== */
@@ -870,8 +878,10 @@
       display:flex; gap:1.5rem;
       transition:transform 0.55s cubic-bezier(0.16,1,0.3,1);
     }
+    /* Two reviews per view on desktop; the carousel steps by 100% per page.
+       Card width = (50% of the track minus half the gap) so two fill the row. */
     .testi-card {
-      flex:0 0 340px; background:#fff; border-radius:var(--r-lg);
+      flex:0 0 calc(50% - 0.75rem); background:#fff; border-radius:var(--r-lg);
       padding:2rem; box-shadow:0 6px 24px rgba(0,0,0,0.07);
     }
     .testi-stars { color:var(--gold); font-size:1rem; letter-spacing:2px; margin-bottom:0.8rem; }

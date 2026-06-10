@@ -222,11 +222,11 @@ export default function Home() {
               </span>
             </p>
             <div className="hero-btns reveal delay-3">
-              <MCBEBookButton>
-                <span data-sr="Proveri dostupnost" data-en="Check availability">Proveri dostupnost</span>
-              </MCBEBookButton>
-              <Link href="/apartmani" className="btn btn-outline">
+              <Link href="/apartmani" className="btn btn-gold">
                 <span data-sr="Pogledaj apartmane" data-en="View apartments">Pogledaj apartmane</span>
+              </Link>
+              <Link href="/kontakt" className="btn btn-outline">
+                <span data-sr="Kontakt" data-en="Contact">Kontakt</span>
               </Link>
             </div>
             <div className="hero-trust reveal delay-4">
@@ -763,7 +763,7 @@ export default function Home() {
         <div className="testi-carousel container">
           <div className="testi-track" ref={testiTrackRef}>
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="testi-card" style={{ flex: '0 0 calc(50% - 0.75rem)' }}>
+              <div key={i} className="testi-card">
                 <div className="testi-stars">★★★★★</div>
                 <div className="testi-headline"><span data-sr={t.headline_sr} data-en={t.headline_en}>{t.headline_sr}</span></div>
                 <p className="testi-quote"><span data-sr={t.text_sr} data-en={t.text_en}>{t.text_sr}</span></p>

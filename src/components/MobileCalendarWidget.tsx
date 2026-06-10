@@ -24,7 +24,7 @@ declare global {
 
 export default function MobileCalendarWidget({
   token = DEFAULT_TOKEN,
-  primaryColor = '#C9A84C',
+  primaryColor = '#1A1815',
   showGuests = true,
   darkMode = false,
   className,
