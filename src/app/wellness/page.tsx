@@ -195,9 +195,9 @@ export default function WellnessPage() {
             ))}
           </div>
           <p className="massage-note reveal">
-            <span data-sr="Obavezno zakazivanje dva sata ranije na broj"
-                  data-en="Booking required two hours in advance — call">
-              Obavezno zakazivanje dva sata ranije na broj
+            <span data-sr="Obavezno zakazivanje 24 sata ranije na broj"
+                  data-en="Booking required 24 hours in advance — call">
+              Obavezno zakazivanje 24 sata ranije na broj
             </span>{' '}
             <a href={MASSAGE_PHONE_HREF}>{MASSAGE_PHONE}</a>
           </p>
