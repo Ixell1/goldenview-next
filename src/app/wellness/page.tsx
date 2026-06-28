@@ -3,6 +3,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
 import RevealOnScroll from '@/components/RevealOnScroll';
+import { MASSAGES, MASSAGE_PHONE, MASSAGE_PHONE_HREF } from '@/data/massages';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -170,6 +171,38 @@ export default function WellnessPage() {
           </div>
         </section>
       ))}
+
+      {/* CENOVNIK MASAŽA */}
+      <section id="cenovnik" className="massage-pricing">
+        <div className="container">
+          <div className="massage-pricing-head reveal">
+            <span className="eyebrow"><span data-sr="Cenovnik" data-en="Price list">Cenovnik</span></span>
+            <h2>
+              <span data-sr="Cenovnik" data-en="Massage">Cenovnik</span>{' '}
+              <span className="cursive" data-sr="masaža" data-en="price list">masaža</span>
+            </h2>
+          </div>
+          <div className="massage-price-list reveal">
+            {MASSAGES.map((m, i) => (
+              <div className="massage-price-row" key={i}>
+                <span className="mp-name">
+                  <span data-sr={m.sr} data-en={m.en}>{m.sr}</span>
+                  <span className="mp-dur">{m.dur}</span>
+                </span>
+                <span className="mp-leader" aria-hidden="true" />
+                <span className="mp-price">{m.price} <span className="mp-cur">rsd</span></span>
+              </div>
+            ))}
+          </div>
+          <p className="massage-note reveal">
+            <span data-sr="Obavezno zakazivanje dva sata ranije na broj"
+                  data-en="Booking required two hours in advance — call">
+              Obavezno zakazivanje dva sata ranije na broj
+            </span>{' '}
+            <a href={MASSAGE_PHONE_HREF}>{MASSAGE_PHONE}</a>
+          </p>
+        </div>
+      </section>
 
       {/* VODENI DOZIVLJAJI BENTO */}
       <section className="section-pad">

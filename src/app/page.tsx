@@ -11,6 +11,7 @@ import AptVideoBox from '@/components/AptVideoBox';
 import YouTubeFacade from '@/components/YouTubeFacade';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import { videoFor } from '@/data/videos';
+import { MASSAGES } from '@/data/massages';
 
 type HomeApt = {
   id: string;
@@ -714,6 +715,27 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============ MASSAGE PRICE BAND (slim) ============ */}
+      <section className="massage-band-section">
+        <div className="container">
+          <Link href="/wellness#cenovnik" className="massage-band reveal">
+            <span className="mb-head">
+              <span className="mb-eyebrow"><span data-sr="Wellness & SPA" data-en="Wellness & SPA">Wellness &amp; SPA</span></span>
+              <span className="mb-title"><span data-sr="Cenovnik masaža" data-en="Massage prices">Cenovnik masaža</span></span>
+            </span>
+            <span className="mb-list">
+              {MASSAGES.map((m, i) => (
+                <span className="mb-item" key={i}>
+                  <span className="mb-name"><span data-sr={m.short_sr} data-en={m.short_en}>{m.short_sr}</span> <span className="mb-dur">{m.dur}</span></span>
+                  <span className="mb-price">{m.price.replace(',00', '')} <span className="mb-cur">rsd</span></span>
+                </span>
+              ))}
+            </span>
+            <span className="mb-cta"><span data-sr="Detaljnije →" data-en="Details →">Detaljnije →</span></span>
+          </Link>
         </div>
       </section>
 

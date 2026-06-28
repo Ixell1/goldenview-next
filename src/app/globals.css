@@ -442,6 +442,90 @@
       .flatpickr-day { max-width:13.5% !important; height:38px !important; line-height:38px !important; }
     }
 
+    /* ===================== MASSAGE PRICE LIST (wellness) ===================== */
+    .massage-pricing {
+      position:relative;
+      padding:5.5rem 0;
+      background:#13100C;
+      color:#F4ECDB;
+      overflow:hidden;
+    }
+    /* Faded spa photo on the right edge — evokes the dark spa ambience */
+    .massage-pricing::before {
+      content:''; position:absolute; inset:0;
+      background:url('/spa-images/new/masaza.webp') center right / cover no-repeat;
+      opacity:0.20;
+    }
+    .massage-pricing::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(90deg, #13100C 38%, rgba(19,16,12,0.55) 100%);
+    }
+    .massage-pricing > .container { position:relative; z-index:1; }
+    .massage-pricing-head { text-align:center; margin-bottom:2.6rem; }
+    .massage-pricing-head .eyebrow { color:var(--gold-light); }
+    .massage-pricing-head h2 { color:#F7F1E3; }
+    .massage-pricing-head h2 .cursive { color:var(--gold); }
+    .massage-price-list { max-width:760px; margin:0 auto; }
+    .massage-price-row {
+      display:flex; align-items:baseline; gap:0.9rem;
+      padding:1rem 0;
+    }
+    .massage-price-row + .massage-price-row { border-top:1px solid rgba(201,168,76,0.15); }
+    .mp-name { font-size:1.18rem; font-weight:600; color:#F1E9D6; white-space:nowrap; }
+    .mp-dur { font-size:0.9rem; color:#A99C7E; margin-left:0.55rem; font-weight:500; }
+    .mp-leader {
+      flex:1 1 auto; min-width:1.5rem;
+      align-self:center;
+      border-bottom:2px dotted rgba(201,168,76,0.42);
+    }
+    .mp-price {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.75rem; font-weight:600; color:var(--gold-light);
+      white-space:nowrap; letter-spacing:0.01em;
+    }
+    .mp-cur { font-family:'Plus Jakarta Sans', sans-serif; font-size:0.92rem; font-weight:500; color:#A99C7E; }
+    .massage-note {
+      text-align:center; margin-top:2.4rem;
+      font-size:0.95rem; color:#B8AC92; letter-spacing:0.03em;
+    }
+    .massage-note a { color:var(--gold-light); font-weight:600; white-space:nowrap; text-decoration:none; }
+    .massage-note a:hover { text-decoration:underline; }
+
+    /* ===================== MASSAGE PRICE BAND (home — slim teaser) ===================== */
+    .massage-band-section { padding:0 0 1rem; }
+    .massage-band {
+      display:flex; align-items:center; gap:1.5rem 2rem; flex-wrap:wrap;
+      background:#13100C;
+      border:1px solid rgba(201,168,76,0.22);
+      border-radius:var(--r-lg);
+      padding:1.4rem 1.8rem;
+      text-decoration:none;
+      transition:border-color 0.25s ease, transform 0.25s ease;
+    }
+    .massage-band:hover { border-color:rgba(201,168,76,0.5); transform:translateY(-2px); }
+    .massage-band .mb-head { display:flex; flex-direction:column; gap:0.15rem; flex:0 0 auto; }
+    .mb-eyebrow { font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); }
+    .mb-title { font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:600; color:#F4ECDB; line-height:1.1; }
+    .mb-list { display:flex; flex-wrap:wrap; gap:0.6rem 1.6rem; flex:1 1 auto; justify-content:center; }
+    .mb-item { display:flex; align-items:baseline; gap:0.45rem; white-space:nowrap; }
+    .mb-name { font-size:0.92rem; font-weight:600; color:#E7DEC9; }
+    .mb-dur { font-size:0.8rem; color:#9C8F73; font-weight:500; }
+    .mb-price { font-family:'Cormorant Garamond', serif; font-size:1.25rem; font-weight:600; color:var(--gold-light); }
+    .mb-price .mb-cur { font-family:'Plus Jakarta Sans', sans-serif; font-size:0.75rem; font-weight:500; color:#9C8F73; }
+    .mb-cta { flex:0 0 auto; font-size:0.85rem; font-weight:700; color:var(--gold-light); letter-spacing:0.02em; white-space:nowrap; }
+
+    @media (max-width:768px) {
+      .massage-pricing { padding:3.6rem 0; }
+      .massage-pricing::before { opacity:0.14; }
+      .mp-name { font-size:0.98rem; }
+      .mp-price { font-size:1.4rem; }
+      .massage-band { flex-direction:column; align-items:stretch; gap:1rem; padding:1.4rem 1.3rem; }
+      .massage-band .mb-head { align-items:center; text-align:center; }
+      .mb-list { justify-content:space-between; gap:0.7rem 1rem; }
+      .mb-item { flex:0 0 calc(50% - 0.5rem); justify-content:space-between; }
+      .mb-cta { text-align:center; }
+    }
+
     /* ===================== AVAILABILITY CHECKER ===================== */
     .availability-bar {
       background:#fff;
