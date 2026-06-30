@@ -12,6 +12,10 @@ type Props = {
   primaryColor?: string;
   showGuests?: boolean;
   darkMode?: boolean;
+  /** MCBE has its own i18n keyed on navigator.language (falls back to 'en').
+   *  Force Serbian so the bar reads "Pretraga / Odrasli / Deca" for every
+   *  visitor, matching the site's default language. */
+  lang?: string;
   className?: string;
 };
 
@@ -30,6 +34,7 @@ export default function MobileCalendarWidget({
   primaryColor = '#1A1815',
   showGuests = true,
   darkMode = false,
+  lang = 'sr',
   className,
 }: Props) {
   const barRef = useRef<HTMLDivElement>(null);
@@ -74,6 +79,7 @@ export default function MobileCalendarWidget({
         ref={barRef}
         className={`mcbe-widget-searchbar${className ? ` ${className}` : ''}`}
         data-token={token}
+        data-lang={lang}
         data-primary-color={primaryColor}
         data-show-guests={String(showGuests)}
         data-dark-mode={String(darkMode)}
