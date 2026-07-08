@@ -27,8 +27,8 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       'Vodič kroz najlepše atrakcije Sokobanje — Lepterija i Sokograd, vodopad Ripaljka, Bovansko jezero, Sesalačka pećina i planovi izleta za 1 i 3 dana.',
     date: '2025-09-15',
-    cover: '/spa-images/new/ambijent-spa.webp',
-    coverAlt: 'Priroda i atrakcije Sokobanje',
+    cover: '/blog-images/sokobanja-centar.webp',
+    coverAlt: 'Pogled na centar Sokobanje',
     readingMinutes: 9,
     body: [
       { type: 'p', text: 'Sokobanja je jedan od najlepših banjskih i prirodnih centara u istočnoj Srbiji. Na malom prostoru smenjuju se klisura Moravice, srednjovekovni Sokograd, vodopad Ripaljka, uređeni parkovi i termalni izvori. Idealna je za porodični odmor, opuštanje i lagane planinarske šetnje.' },
