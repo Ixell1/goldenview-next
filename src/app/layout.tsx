@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     locale: 'sr_RS',
     siteName: 'Goldenview Sokobanja',
     url: 'https://goldenview.rs',
-    images: [{ url: '/logo-goldenview.png', width: 1200, height: 630, alt: 'Goldenview Sokobanja' }],
+    // og:image comes from src/app/opengraph-image.png (branded pool card)
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Goldenview Sokobanja',
     description: 'Apartmani sa bazenom, restoran sa domaćom kuhinjom i wellness u Sokobanji.',
-    images: ['/logo-goldenview.png'],
+    // twitter:image comes from src/app/twitter-image.png
   },
   robots: {
     index: true,
