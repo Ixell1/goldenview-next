@@ -40,7 +40,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 const fmt = (iso: string) =>
-  new Date(iso).toLocaleDateString('sr-RS', { day: 'numeric', month: 'long', year: 'numeric' });
+  // sr-Latn keeps month names in Latin ("maj"), per the site's latinica rule
+  new Date(iso).toLocaleDateString('sr-Latn-RS', { day: 'numeric', month: 'long', year: 'numeric' });
 
 // Parse lightweight markdown links [text](url) inside blog copy. Internal
 // goldenview links render as <Link> (client nav + SEO interlinking); external
